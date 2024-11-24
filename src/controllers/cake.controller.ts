@@ -1,7 +1,8 @@
 import {Response , Request} from 'express';
-import {CakeInterface} from "../interfaces/cake.interface";
+import {CakeImage, CakeInterface} from "../interfaces/cake.interface";
 import CakeModel from "../models/cake.model";
 import UserModel from "../models/user.model";
+import CakeImageModel from "../models/cake-image.model";
 
 export class CakeController {
 
@@ -19,14 +20,24 @@ export class CakeController {
             return;
         }
 
-        const createCake = await CakeModel.create({
+        const cakeCreated = await CakeModel.create({
             name, description, userId: user.dataValues.id
         });
 
-        if(createCake) res.status(200).json({
-            message: "cake saved",
-            result: createCake
-        });
+        if(cakeCreated) {
+            const imageData = images.map((value: CakeImage) => {
+                return {
+                    url: value.url,
+                    cakeId: cakeCreated.dataValues.id
+                }
+            });
+            CakeImageModel.bulkCreate(imageData).then(console.log).catch(console.error);
+
+            res.status(200).json({
+                message: "cake saved",
+                result: cakeCreated
+            });
+        }
         else res.status(500).json({
             message: "cake did not save",
             result: null

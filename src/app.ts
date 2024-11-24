@@ -5,10 +5,12 @@ import authRouter from './routers/auth-user.router';
 import cakeRouter from './routers/cake.router';
 import {createUserTable} from "./models/user.model";
 import {createCakeTable} from "./models/cake.model";
+import {createCakeImageTable} from "./models/cake-image.model";
 
 connectionMysql.connect();
 createUserTable().then();
 createCakeTable().then();
+createCakeImageTable().then();
 
 const app = express();
 
