@@ -1,10 +1,10 @@
 import express = require('express');
 import connectionMysql = require('./db/connection');
-const authRouter = require('./routers/auth-user.router');
-/*
-const express = require('express');
-const connectionMysql = require('./connection.ts');
-*/
+import authRouter from './routers/auth-user.router';
+import {createUserTable} from "./models/user.model";
+
+connectionMysql.connect();
+createUserTable().then();
 
 const app = express();
 
@@ -18,5 +18,3 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
     console.log("Listening on port http://localhost:3000!");
 });
-
-connectionMysql.connect();
