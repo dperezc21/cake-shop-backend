@@ -1,4 +1,5 @@
 import express = require('express');
+import cors = require('cors');
 import connectionMysql = require('./db/connection');
 import authRouter from './routers/auth-user.router';
 import {createUserTable} from "./models/user.model";
@@ -9,6 +10,7 @@ createUserTable().then();
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {

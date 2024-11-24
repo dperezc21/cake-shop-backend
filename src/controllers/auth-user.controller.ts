@@ -9,7 +9,8 @@ export class AuthUserController {
         const creatingUser = await UserModel.create({ firstName: name, lastName, password, phone, email }).then();
 
         if(creatingUser) res.status(200).json({
-            message: "user registered"
+            message: "user registered",
+            result: creatingUser
         });
 
         else res.status(500).json({
