@@ -2,8 +2,8 @@ import {DataTypes} from "sequelize";
 import {configDB} from "../db/connection";
 
 const UserModel = configDB.define('User',{
-    userId: {
-      type: DataTypes.INTEGER,
+    id: {
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },

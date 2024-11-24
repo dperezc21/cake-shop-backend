@@ -1,0 +1,2 @@
+
+GET http://localhost:3000/auth/users/login?email=davier@gmail.com&password=12345
