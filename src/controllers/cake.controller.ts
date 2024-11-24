@@ -3,6 +3,7 @@ import {CakeImage, CakeInterface} from "../interfaces/cake.interface";
 import CakeModel from "../models/cake.model";
 import UserModel from "../models/user.model";
 import CakeImageModel from "../models/cake-image.model";
+import {MapCakeHelper} from "../helpers/map-cake.helper";
 
 export class CakeController {
 
@@ -49,6 +50,7 @@ export class CakeController {
         const user = await UserModel.findByPk(userId);
 
         if(!user?.dataValues?.id) {
+
             res.status(500).json({
                 message: "user no exists",
                 result: null
@@ -57,12 +59,13 @@ export class CakeController {
         }
 
         const userCakes = await CakeModel.findAll({
-            where: { userId }
+            where: { userId },
+            include: { model: CakeImageModel}
         });
 
         res.status(200).json({
             message: "",
-            result: userCakes
+            result: MapCakeHelper.mapCakeList(userCakes)
         })
     }
 }
