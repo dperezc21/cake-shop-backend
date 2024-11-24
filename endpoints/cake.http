@@ -1,0 +1,8 @@
+
+POST http://localhost:3000/cakes?userId=1 HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Decoration Party",
+  "description": "Un reconfortante postre hecho con trozos de pan remojados en una mezcla de leche, huevos y especias, servido caliente con salsa de vainilla. Un pastel rico y húmedo, hecho con capas de chocolate intenso, cubierto con una suave ganache y decorado con virutas de chocolate."
+}

@@ -1,2 +1,16 @@
 
+### user login
 GET http://localhost:3000/auth/users/login?email=davier@gmail.com&password=12345
+
+
+### register user
+POST http://localhost:3000/auth/users/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "davier",
+  "lastName": "perez",
+  "email": "davier@gmail.com",
+  "phone": "31100202002",
+  "password": "12345"
+}
