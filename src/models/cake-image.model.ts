@@ -13,17 +13,19 @@ const CakeImageModel = configDB.define('CakeImage', {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    cakeId: {
+    /*cakeId: {
         type: DataTypes.INTEGER,
         references: {
             model: 'Cake',
             key: 'id'
         },
         allowNull: false
-    }
+    }*/
 },{
     tableName: 'cake_image'
 });
+
+CakeModel.hasMany(CakeImageModel, {foreignKey: 'cakeId'});
 
 export async function createCakeImageTable() {
     try {
