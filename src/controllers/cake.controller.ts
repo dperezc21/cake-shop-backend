@@ -23,7 +23,7 @@ export class CakeController {
         }
 
         const cakeCreated = await CakeModel.create({
-            name, description, userId: user.dataValues.id
+            name, description, user_id: user.dataValues.id
         });
 
         if(cakeCreated) {
@@ -43,7 +43,7 @@ export class CakeController {
         }
 
         const userCakes = await CakeModel.findAll({
-            where: { userId },
+            where: { user_id: userId },
             include: { model: CakeImageModel}
         });
         ResponseHelper.responseJson(res, "", MapCakeHelper.mapCakeList(userCakes));

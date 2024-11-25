@@ -25,7 +25,7 @@ const CakeImageModel = configDB.define('CakeImage', {
     tableName: 'cake_image'
 });
 
-CakeModel.hasMany(CakeImageModel, {foreignKey: 'cakeId'});
+CakeModel.hasMany(CakeImageModel, {foreignKey: 'cake_id'});
 
 export async function createCakeImageTable() {
     try {

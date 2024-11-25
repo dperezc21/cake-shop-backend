@@ -26,7 +26,7 @@ const CakeModel = configDB.define('Cake',{
     }*/
 }, { tableName: 'cake'});
 
-UserModel.hasMany(CakeModel, {foreignKey: 'userId'});
+UserModel.hasMany(CakeModel, {foreignKey: 'user_id'});
 
 export async function createCakeTable() {
     try {

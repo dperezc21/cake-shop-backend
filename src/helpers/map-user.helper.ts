@@ -6,10 +6,10 @@ export class MapUserHelper {
     static mapUser(user: any): UserInterface {
         return {
             id: user.id,
-            name: user.firstName,
+            name: user.first_name,
             email: user.email,
             phone: user.phone,
-            lastName: user.lastName
+            lastName: user.last_name
         }
     }
 

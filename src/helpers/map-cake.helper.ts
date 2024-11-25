@@ -8,7 +8,7 @@ export class MapCakeHelper {
             id: cakeModel.id,
             name: cakeModel.name,
             description: cakeModel.description,
-            images: cakeModel.CakeImages.map(this.mapCakeImage)
+            images: cakeModel?.CakeImages?.map(this.mapCakeImage) ?? []
         }
     }
 

@@ -6,7 +6,7 @@ export class CakeImageController {
         const imageData = images.map((value: CakeImage) => {
             return {
                 url: value.url,
-                cakeId: cakeIdCreated
+                cake_id: cakeIdCreated
             }
         });
         CakeImageModel.bulkCreate(imageData).then().catch(console.error);

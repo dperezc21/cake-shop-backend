@@ -8,11 +8,11 @@ const UserModel = configDB.define('User',{
         autoIncrement: true,
         primaryKey: true
     },*/
-    firstName: {
+    first_name: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    lastName: {
+    last_name: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -30,7 +30,7 @@ const UserModel = configDB.define('User',{
 }, {
     tableName: 'user'
 });
-OrganizationModel.hasMany(UserModel, {foreignKey: 'companyId'});
+OrganizationModel.hasMany(UserModel, {foreignKey: 'company_id'});
 
 export async function createUserTable() {
     try {

@@ -10,7 +10,7 @@ export class AuthUserController {
     async registerUser(req: Request, res: Response) {
         const {name, lastName, password, phone, email}: RegisterUserInterface = req.body as RegisterUserInterface;
 
-        const creatingUser: Model = await UserModel.create({ firstName: name, lastName, password, phone, email }).then();
+        const creatingUser: Model = await UserModel.create({ first_name: name, last_name: lastName, password, phone, email }).then();
         const responseUser: UserInterface = MapUserHelper.mapUser(creatingUser.dataValues);
         if(creatingUser) ResponseHelper.responseJson(res, "user registered", responseUser);
 
