@@ -1,5 +1,6 @@
 import {DataTypes} from "sequelize";
 import {configDB} from "../db/connection";
+import OrganizationModel from "./organization.model";
 
 const UserModel = configDB.define('User',{
     id: {
@@ -30,6 +31,7 @@ const UserModel = configDB.define('User',{
 }, {
     tableName: 'user'
 });
+OrganizationModel.hasMany(UserModel, {foreignKey: 'companyId'});
 
 export async function createUserTable() {
     try {
