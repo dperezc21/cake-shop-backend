@@ -4,11 +4,11 @@ import CakeModel from "./cake.model";
 
 
 const CakeImageModel = configDB.define('CakeImage', {
-    id: {
+    /*id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-    },
+    },*/
     url: {
         type: DataTypes.TEXT,
         allowNull: false

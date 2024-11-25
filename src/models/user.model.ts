@@ -3,11 +3,11 @@ import {configDB} from "../db/connection";
 import OrganizationModel from "./organization.model";
 
 const UserModel = configDB.define('User',{
-    id: {
+    /*id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
-    },
+    },*/
     firstName: {
         type: DataTypes.STRING,
         allowNull: false
@@ -21,8 +21,7 @@ const UserModel = configDB.define('User',{
         allowNull: false
     },
     phone: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+        type: DataTypes.STRING
     },
     password: {
         type: DataTypes.STRING,

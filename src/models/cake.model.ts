@@ -1,13 +1,13 @@
 import {configDB} from "../db/connection";
 import {DataTypes} from "sequelize";
-
+import UserModel from "./user.model";
 
 const CakeModel = configDB.define('Cake',{
-    id: {
+    /*id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
-    },
+    },*/
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -16,15 +16,18 @@ const CakeModel = configDB.define('Cake',{
         type: DataTypes.STRING,
         allowNull: false
     },
-    userId: {
+    /*userId: {
         type: DataTypes.INTEGER,
         references: {
             model: 'User',
             key: 'id',
         },
         allowNull: false
-    }
+    }*/
 }, { tableName: 'cake'});
+
+UserModel.hasMany(CakeModel, {foreignKey: 'userId'});
+
 export async function createCakeTable() {
     try {
         await CakeModel.sync();

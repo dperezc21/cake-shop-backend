@@ -11,13 +11,9 @@ import {createOrganizationTable} from "./models/organization.model";
 
 connectionMysql.connect();
 createOrganizationTable().then();
-console.log("CREANDO TABLA ORGANIZACION")
 createUserTable().then();
-console.log("CREANDO TABLA USUARIO")
 createCakeTable().then();
-console.log("CREANDO TABLA CAKE")
 createCakeImageTable().then();
-console.log("CREANDO TABLA CAKE IMAGE")
 
 const app = express();
 

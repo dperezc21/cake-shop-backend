@@ -5,7 +5,6 @@ const OrganizationModel = configDB.define('OrganizationModel', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
-        primaryKey: true
     },
     image: {
         type: DataTypes.TEXT,
