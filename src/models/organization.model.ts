@@ -6,8 +6,16 @@ const OrganizationModel = configDB.define('OrganizationModel', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    image: {
+    logo: {
         type: DataTypes.TEXT,
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    phone: {
+        type: DataTypes.STRING(20),
+        allowNull: false
     }
 }, {
     tableName: 'company'
