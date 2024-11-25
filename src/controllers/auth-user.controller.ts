@@ -1,8 +1,9 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import {RegisterUserInterface} from "../interfaces/auth-user.interface";
 import UserModel from "../models/user.model";
 import {AuthLoginUserInterface} from "../interfaces/auth-login-user.interface";
 import {Model} from "sequelize";
+import {ResponseHelper} from "../helpers/response.helper";
 
 export class AuthUserController {
     async registerUser(req: Request, res: Response) {
@@ -10,14 +11,9 @@ export class AuthUserController {
 
         const creatingUser: Model = await UserModel.create({ firstName: name, lastName, password, phone, email }).then();
 
-        if(creatingUser) res.status(200).json({
-            message: "user registered",
-            result: creatingUser
-        });
+        if(creatingUser) ResponseHelper.responseJson(res, "user registered", creatingUser);
 
-        else res.status(500).json({
-            message: "user did not register"
-        });
+        else ResponseHelper.responseJson(res, "user did not register", null, 500);
     }
 
     async loginUser(req: Request, res: Response) {
@@ -26,13 +22,8 @@ export class AuthUserController {
             where: { email, password }
         });
 
-        if(findUser?.dataValues?.id) res.status(200).json({
-            message: "user found",
-            result: findUser
-        });
-        else res.status(404).json({
-            message: "user did not found",
-            result: null
-        })
+        if(findUser?.dataValues?.id) ResponseHelper.responseJson(res, "user found", findUser);
+
+        else ResponseHelper.responseJson(res, "user did not found", null, 404);
     }
 }

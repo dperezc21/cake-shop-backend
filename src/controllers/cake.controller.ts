@@ -1,9 +1,13 @@
-import {Response , Request} from 'express';
-import {CakeImage, CakeInterface} from "../interfaces/cake.interface";
+import {Request, Response} from 'express';
+import {CakeInterface} from "../interfaces/cake.interface";
 import CakeModel from "../models/cake.model";
 import UserModel from "../models/user.model";
 import CakeImageModel from "../models/cake-image.model";
 import {MapCakeHelper} from "../helpers/map-cake.helper";
+import {ResponseHelper} from "../helpers/response.helper";
+import {CakeImageController} from "./cake-image.controller";
+
+const cakeImageController = new CakeImageController();
 
 export class CakeController {
 
@@ -14,10 +18,7 @@ export class CakeController {
         const user = await UserModel.findByPk(userId);
 
         if(!user?.dataValues?.id) {
-            res.status(500).json({
-                message: "user no exists",
-                result: null
-            });
+            ResponseHelper.responseJson(res, "user no exists", null, 500);
             return;
         }
 
@@ -26,23 +27,10 @@ export class CakeController {
         });
 
         if(cakeCreated) {
-            const imageData = images.map((value: CakeImage) => {
-                return {
-                    url: value.url,
-                    cakeId: cakeCreated.dataValues.id
-                }
-            });
-            CakeImageModel.bulkCreate(imageData).then(console.log).catch(console.error);
-
-            res.status(200).json({
-                message: "cake saved",
-                result: cakeCreated
-            });
+            cakeImageController.saveImagesCake(images, cakeCreated.dataValues.id)
+            ResponseHelper.responseJson(res, "cake saved", MapCakeHelper.mapCake(cakeCreated));
         }
-        else res.status(500).json({
-            message: "cake did not save",
-            result: null
-        });
+        else ResponseHelper.responseJson(res, "cake did not save", null, 500);
     }
 
     async getCakesByUser(req: Request, res: Response) {
@@ -50,11 +38,7 @@ export class CakeController {
         const user = await UserModel.findByPk(userId);
 
         if(!user?.dataValues?.id) {
-
-            res.status(500).json({
-                message: "user no exists",
-                result: null
-            });
+            ResponseHelper.responseJson(res, "user no exists", null, 500);
             return;
         }
 
@@ -62,10 +46,6 @@ export class CakeController {
             where: { userId },
             include: { model: CakeImageModel}
         });
-
-        res.status(200).json({
-            message: "",
-            result: MapCakeHelper.mapCakeList(userCakes)
-        })
+        ResponseHelper.responseJson(res, "", MapCakeHelper.mapCakeList(userCakes));
     }
 }
