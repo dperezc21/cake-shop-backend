@@ -6,6 +6,7 @@ import CakeImageModel from "../models/cake-image.model";
 import {MapCakeHelper} from "../helpers/map-cake.helper";
 import {ResponseHelper} from "../helpers/response.helper";
 import {CakeImageController} from "./cake-image.controller";
+import OrganizationModel from "../models/organization.model";
 
 const cakeImageController = new CakeImageController();
 
@@ -13,17 +14,17 @@ export class CakeController {
 
     async saveCake(req: Request, res: Response) {
         const { name, description, images }: CakeInterface = req.body;
-        const userId: string = req.query.userId as string;
+        const organizationId: string = req.query.organizationId as string;
 
-        const user = await UserModel.findByPk(userId);
+        const company = await OrganizationModel.findByPk(organizationId);
 
-        if(!user?.dataValues?.id) {
-            ResponseHelper.responseJson(res, "user no exists", null, 500);
+        if(!company?.dataValues?.id) {
+            ResponseHelper.responseJson(res, "company no exists", null, 500);
             return;
         }
 
         const cakeCreated = await CakeModel.create({
-            name, description, user_id: user.dataValues.id
+            name, description, company_id: company.dataValues.id
         });
 
         if(cakeCreated) {
@@ -33,19 +34,19 @@ export class CakeController {
         else ResponseHelper.responseJson(res, "cake did not save", null, 500);
     }
 
-    async getCakesByUser(req: Request, res: Response) {
-        const userId: string = req.query.userId as string;
-        const user = await UserModel.findByPk(userId);
+    async getCakesByOrganization(req: Request, res: Response) {
+        const organizationId: string = req.query.organizationId as string;
+        const user = await OrganizationModel.findByPk(organizationId);
 
         if(!user?.dataValues?.id) {
-            ResponseHelper.responseJson(res, "user no exists", null, 500);
+            ResponseHelper.responseJson(res, "company no exists", null, 500);
             return;
         }
 
-        const userCakes = await CakeModel.findAll({
-            where: { user_id: userId },
-            include: { model: CakeImageModel}
+        const companyCakes = await CakeModel.findAll({
+            where: { company_id: organizationId },
+            include: { model: CakeImageModel }
         });
-        ResponseHelper.responseJson(res, "", MapCakeHelper.mapCakeList(userCakes));
+        ResponseHelper.responseJson(res, "", MapCakeHelper.mapCakeList(companyCakes));
     }
 }

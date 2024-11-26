@@ -9,21 +9,24 @@ export class OrganizationController {
 
     async saveOrganization(req: Request, res: Response) {
         const { name, phone, image, email }: OrganizationInterface = req.body;
-        const userId: string = req.params.userId;
+        //const userId: string = req.params.userId;
         const findOrgByEmail = await OrganizationModel.findOne({
             where: {email}
         });
-        if(findOrgByEmail?.dataValues?.id) ResponseHelper.responseJson(res, "company exists with this email", null);
-        const findUserForOrg = await UserModel.findByPk(userId);
-        if(!findUserForOrg?.dataValues?.id) ResponseHelper.responseJson(res, "user for company no exists", null);
+        if(findOrgByEmail?.dataValues?.id) {
+            ResponseHelper.responseJson(res, "company exists with this email", null);
+            return ;
+        }
+        /*const findUserForOrg = await UserModel.findByPk(userId);
+        if(!findUserForOrg?.dataValues?.id) ResponseHelper.responseJson(res, "user for company no exists", null);*/
         const orgSaved = await OrganizationModel.create({
             name, phone, logo: image, email
         });
         if(orgSaved?.dataValues?.id) {
-            await UserModel.upsert({...findUserForOrg.dataValues, company_id: orgSaved?.dataValues?.id});
+            //await UserModel.upsert({...findUserForOrg.dataValues, company_id: orgSaved?.dataValues?.id});
             ResponseHelper.responseJson(res, "company saved", MapOrganizationHelper.mapOrganization(orgSaved?.dataValues));
         }
-        else ResponseHelper.responseJson(res, "company did not save", null, 500);
+        else ResponseHelper.responseJson(res, "company did not save", null);
     }
 
     /*async getOrganizationByUser(req: Request, res: Response) {
