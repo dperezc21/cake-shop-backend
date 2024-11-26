@@ -3,7 +3,6 @@ import {OrganizationInterface} from "../interfaces/organization.interface";
 import OrganizationModel from "../models/organization.model";
 import {ResponseHelper} from "../helpers/response.helper";
 import {MapOrganizationHelper} from "../helpers/map-organization.helper";
-import UserModel from "../models/user.model";
 
 export class OrganizationController {
 
@@ -29,19 +28,13 @@ export class OrganizationController {
         else ResponseHelper.responseJson(res, "company did not save", null);
     }
 
-    /*async getOrganizationByUser(req: Request, res: Response) {
-        const userId: string = req.params.userId;
-        const getOrganization = await OrganizationModel.findOne({
-            where: { email: 'moca@gmail.com'},
-            include: {model: UserModel}
-        })
-            /!*await UserModel.findByPk(userId, {
-            include: { model: OrganizationModel }
-        });*!/
+    async getOrganizationById(req: Request, res: Response) {
+        const organizationId: string = req.params.organizationId;
+        const getOrganization = await OrganizationModel.findByPk(organizationId);
 
-        res.json({
-            getOrganization
-        })
-    }*/
+        if(getOrganization.dataValues.id)
+            ResponseHelper.responseJson(res, "", MapOrganizationHelper.mapOrganization(getOrganization.dataValues));
+        else ResponseHelper.responseJson(res, "company did not saved", null);
+    }
 
 }
