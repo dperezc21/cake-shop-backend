@@ -7,5 +7,6 @@ const authUserController = new AuthUserController();
 
 authRouter.post('/users/register', authUserController.registerUser);
 authRouter.get('/users/login', authUserController.loginUser);
+authRouter.delete('/users/:userId', authUserController.deleteUser);
 
 export default authRouter;

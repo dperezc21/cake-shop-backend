@@ -14,3 +14,6 @@ Content-Type: application/json
   "phone": "31100202002",
   "password": "12345"
 }
+
+### delete use by id
+DELETE http://localhost:3000/auth/users/1

@@ -36,4 +36,15 @@ export class AuthUserController {
 
         else ResponseHelper.responseJson(res, "user did not found", null, 404);
     }
+
+    async deleteUser(req: Request, res: Response) {
+        const userId: string = req.params.userId;
+        const deleteUser: number = await UserModel.destroy({
+            where: { id: userId }
+        });
+
+        if (deleteUser > 0) ResponseHelper.responseJson(res, "user deleted", deleteUser);
+        else ResponseHelper.responseJson(res, "", null, 201);
+
+    }
 }
