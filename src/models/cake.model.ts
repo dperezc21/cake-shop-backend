@@ -1,6 +1,6 @@
 import {configDB} from "../db/connection";
 import {DataTypes} from "sequelize";
-import UserModel from "./user.model";
+import OrganizationModel from "./organization.model";
 
 const CakeModel = configDB.define('Cake',{
     /*id: {
@@ -26,7 +26,7 @@ const CakeModel = configDB.define('Cake',{
     }*/
 }, { tableName: 'cake'});
 
-UserModel.hasMany(CakeModel, {foreignKey: 'user_id'});
+OrganizationModel.hasMany(CakeModel, {foreignKey: 'company_id'});
 
 export async function createCakeTable() {
     try {
