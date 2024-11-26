@@ -37,4 +37,11 @@ export class OrganizationController {
         else ResponseHelper.responseJson(res, "company did not saved", null);
     }
 
+    async getOrganizationsList(req: Request, res: Response) {
+        const allOrganizations = await OrganizationModel.findAll({
+            attributes: ['id', 'name']
+        });
+        ResponseHelper.responseJson(res, "organization list", MapOrganizationHelper.mapOrganizationList(allOrganizations));
+    }
+
 }

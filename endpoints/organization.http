@@ -11,3 +11,6 @@ Content-Type: application/json
 
 ### get company by id
 GET http://localhost:3000/org/1
+
+### get all organizations
+GET http://localhost:3000/org

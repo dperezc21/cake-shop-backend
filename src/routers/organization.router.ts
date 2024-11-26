@@ -6,5 +6,6 @@ const organizationController = new OrganizationController();
 
 organizationRouter.post('', organizationController.saveOrganization);
 organizationRouter.get('/:organizationId', organizationController.getOrganizationById);
+organizationRouter.get('', organizationController.getOrganizationsList);
 
 export default organizationRouter;
