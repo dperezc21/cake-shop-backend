@@ -5,12 +5,21 @@ import {AuthLoginUserInterface} from "../interfaces/auth-login-user.interface";
 import {Model} from "sequelize";
 import {ResponseHelper} from "../helpers/response.helper";
 import {MapUserHelper} from "../helpers/map-user.helper";
+import OrganizationModel from "../models/organization.model";
 
 export class AuthUserController {
     async registerUser(req: Request, res: Response) {
+        const organizationId: string = req.query.organizationId as string;
         const {name, lastName, password, phone, email}: RegisterUserInterface = req.body as RegisterUserInterface;
-
-        const creatingUser: Model = await UserModel.create({ first_name: name, last_name: lastName, password, phone, email }).then();
+        const findOrganization = await OrganizationModel.findByPk(organizationId, {
+            attributes: ['id'] });
+        if(!findOrganization?.dataValues?.id) {
+            ResponseHelper.responseJson(res, "company no exists", null);
+            return ;
+        }
+        const creatingUser: Model = await UserModel.create({
+            first_name: name, last_name: lastName, password, phone, email, company_id: findOrganization.dataValues.id
+        });
         const responseUser: UserInterface = MapUserHelper.mapUser(creatingUser.dataValues);
         if(creatingUser) ResponseHelper.responseJson(res, "user registered", responseUser);
 
