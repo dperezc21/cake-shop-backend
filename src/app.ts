@@ -10,10 +10,10 @@ import {createCakeImageTable} from "./models/cake-image.model";
 import {createOrganizationTable} from "./models/organization.model";
 
 connectionMysql.connect();
-/*createOrganizationTable().then();
+createOrganizationTable().then();
 createUserTable().then();
 createCakeTable().then();
-createCakeImageTable().then();*/
+createCakeImageTable().then();
 
 const app = express();
 

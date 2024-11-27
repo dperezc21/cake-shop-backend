@@ -7,7 +7,7 @@ import {MapOrganizationHelper} from "../helpers/map-organization.helper";
 export class OrganizationController {
 
     async saveOrganization(req: Request, res: Response) {
-        const { name, phone, image, email }: OrganizationInterface = req.body;
+        const { name, phone, image, email, description }: OrganizationInterface = req.body;
         const findOrgByEmail = await OrganizationModel.findOne({
             where: {email}
         });
@@ -15,7 +15,7 @@ export class OrganizationController {
             ResponseHelper.responseJson(res, "company exists with this email", null);
             return ;
         }
-        const orgSaved = await OrganizationModel.create({ name, phone, logo: image, email });
+        const orgSaved = await OrganizationModel.create({ name, phone, logo: image, email, description });
         if(orgSaved?.dataValues?.id)
             ResponseHelper.responseJson(res, "company saved", MapOrganizationHelper.mapOrganization(orgSaved?.dataValues));
         else ResponseHelper.responseJson(res, "company did not save", null);

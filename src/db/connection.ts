@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 
 export const configDB = new Sequelize(
-    'moca',
+    'cake_shop',
     'root',
     '',
     {
