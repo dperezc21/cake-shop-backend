@@ -35,4 +35,20 @@ export class OrganizationController {
         ResponseHelper.responseJson(res, "organization list", MapOrganizationHelper.mapOrganizationList(allOrganizations));
     }
 
+    async getOrganizationByName(req: Request, res: Response) {
+        const organizationName: string = req.query.name as string;
+        if(!organizationName) {
+            ResponseHelper.responseJson(res, "organization name empty", null, 201);
+            return ;
+        }
+
+        const getOrganization = await OrganizationModel.findOne({
+            where: { name: organizationName }
+        });
+
+        if(getOrganization.dataValues.id)
+            ResponseHelper.responseJson(res, "organization", MapOrganizationHelper.mapOrganization(getOrganization.dataValues));
+        else ResponseHelper.responseJson(res, "organization no exists", null);
+    }
+
 }
