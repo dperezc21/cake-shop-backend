@@ -4,11 +4,12 @@ import {Model} from "sequelize";
 export class MapOrganizationHelper {
     static mapOrganization(organizationModel: any): OrganizationInterface {
         return {
-            id: organizationModel.id,
-            name: organizationModel.name,
-            email: organizationModel.email,
-            phone: organizationModel.phone,
-            image: organizationModel.logo
+            id: organizationModel?.id,
+            name: organizationModel?.name,
+            email: organizationModel?.email,
+            phone: organizationModel?.phone,
+            image: organizationModel?.logo,
+            description: organizationModel?.description
         }
     }
 

@@ -16,6 +16,10 @@ const OrganizationModel = configDB.define('OrganizationModel', {
     phone: {
         type: DataTypes.STRING(20),
         allowNull: false
+    },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {
     tableName: 'company'

@@ -31,9 +31,7 @@ export class OrganizationController {
     }
 
     async getOrganizationsList(req: Request, res: Response) {
-        const allOrganizations = await OrganizationModel.findAll({
-            attributes: ['id', 'name']
-        });
+        const allOrganizations = await OrganizationModel.findAll();
         ResponseHelper.responseJson(res, "organization list", MapOrganizationHelper.mapOrganizationList(allOrganizations));
     }
 

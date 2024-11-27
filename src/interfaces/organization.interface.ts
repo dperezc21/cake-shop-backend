@@ -5,4 +5,5 @@ export interface OrganizationInterface {
     email: string;
     phone: string;
     image: string;
+    description: string;
 }
