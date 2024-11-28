@@ -8,7 +8,7 @@ using **sequelize for mysql** to storage information
 save, get all organizations and get organization by name and id.  
 get and save user of each organization  
 save cakes and cake images  
-Review **endpoints folder** to see details each endpoint, methods http, body, etc.  
+Review ***endpoints folder*** to see details each endpoint, methods http, body, etc.  
 
 ### **Entity Relationship Model** 
 ![ER - cake shop](https://github.com/user-attachments/assets/705ef9a1-0153-4478-9bec-fc09f1b09777)
