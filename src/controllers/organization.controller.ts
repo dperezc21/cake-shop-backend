@@ -1,8 +1,8 @@
 import {Request, Response} from 'express';
 import {OrganizationInterface} from "../interfaces/organization.interface";
 import OrganizationModel from "../models/organization.model";
-import {ResponseHelper} from "../helpers/response.helper";
-import {MapOrganizationHelper} from "../helpers/map-organization.helper";
+import {ResponseUtil} from "../utils/response.util";
+import {MapOrganizationUtil} from "../utils/mappers/map-organization.util";
 
 export class OrganizationController {
 
@@ -12,13 +12,13 @@ export class OrganizationController {
             where: {email}
         });
         if(findOrgByEmail?.dataValues?.id) {
-            ResponseHelper.responseJson(res, "company exists with this email", null);
+            ResponseUtil.responseJson(res, "company exists with this email", null);
             return ;
         }
         const orgSaved = await OrganizationModel.create({ name, phone, logo: image, email, description });
         if(orgSaved?.dataValues?.id)
-            ResponseHelper.responseJson(res, "company saved", MapOrganizationHelper.mapOrganization(orgSaved?.dataValues));
-        else ResponseHelper.responseJson(res, "company did not save", null);
+            ResponseUtil.responseJson(res, "company saved", MapOrganizationUtil.mapOrganization(orgSaved?.dataValues));
+        else ResponseUtil.responseJson(res, "company did not save", null);
     }
 
     async getOrganizationById(req: Request, res: Response) {
@@ -26,19 +26,19 @@ export class OrganizationController {
         const getOrganization = await OrganizationModel.findByPk(organizationId);
 
         if(getOrganization?.dataValues?.id)
-            ResponseHelper.responseJson(res, "", MapOrganizationHelper.mapOrganization(getOrganization.dataValues));
-        else ResponseHelper.responseJson(res, "company did not saved", null);
+            ResponseUtil.responseJson(res, "", MapOrganizationUtil.mapOrganization(getOrganization.dataValues));
+        else ResponseUtil.responseJson(res, "company did not saved", null);
     }
 
     async getOrganizationsList(req: Request, res: Response) {
         const allOrganizations = await OrganizationModel.findAll();
-        ResponseHelper.responseJson(res, "organization list", MapOrganizationHelper.mapOrganizationList(allOrganizations));
+        ResponseUtil.responseJson(res, "organization list", MapOrganizationUtil.mapOrganizationList(allOrganizations));
     }
 
     async getOrganizationByName(req: Request, res: Response) {
         const organizationName: string = req.params.name as string;
         if(!organizationName) {
-            ResponseHelper.responseJson(res, "organization name empty", null, 201);
+            ResponseUtil.responseJson(res, "organization name empty", null, 201);
             return ;
         }
 
@@ -47,8 +47,8 @@ export class OrganizationController {
         });
 
         if(getOrganization.dataValues.id)
-            ResponseHelper.responseJson(res, "organization", MapOrganizationHelper.mapOrganization(getOrganization.dataValues));
-        else ResponseHelper.responseJson(res, "organization no exists", null);
+            ResponseUtil.responseJson(res, "organization", MapOrganizationUtil.mapOrganization(getOrganization.dataValues));
+        else ResponseUtil.responseJson(res, "organization no exists", null);
     }
 
 }

@@ -1,8 +1,8 @@
-import {CakeImage, CakeInterface} from "../interfaces/cake.interface";
+import {CakeImage, CakeInterface} from "../../interfaces/cake.interface";
 import {Model} from "sequelize";
 
 
-export class MapCakeHelper {
+export class MapCakeUtil {
     static mapCake(cakeModel: any): CakeInterface {
         return {
             id: cakeModel.id,

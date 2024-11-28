@@ -2,8 +2,8 @@ import {Request, Response} from 'express';
 import {CakeInterface} from "../interfaces/cake.interface";
 import CakeModel from "../models/cake.model";
 import CakeImageModel from "../models/cake-image.model";
-import {MapCakeHelper} from "../helpers/map-cake.helper";
-import {ResponseHelper} from "../helpers/response.helper";
+import {MapCakeUtil} from "../utils/mappers/map-cake.util";
+import {ResponseUtil} from "../utils/response.util";
 import {CakeImageController} from "./cake-image.controller";
 import OrganizationModel from "../models/organization.model";
 
@@ -18,7 +18,7 @@ export class CakeController {
         const company = await OrganizationModel.findByPk(organizationId);
 
         if(!company?.dataValues?.id) {
-            ResponseHelper.responseJson(res, "company no exists", null, 500);
+            ResponseUtil.responseJson(res, "company no exists", null, 500);
             return;
         }
 
@@ -28,9 +28,9 @@ export class CakeController {
 
         if(cakeCreated) {
             cakeImageController.saveImagesCake(images, cakeCreated.dataValues.id)
-            ResponseHelper.responseJson(res, "cake saved", MapCakeHelper.mapCake(cakeCreated));
+            ResponseUtil.responseJson(res, "cake saved", MapCakeUtil.mapCake(cakeCreated));
         }
-        else ResponseHelper.responseJson(res, "cake did not save", null, 500);
+        else ResponseUtil.responseJson(res, "cake did not save", null, 500);
     }
 
     async getCakesByOrganization(req: Request, res: Response) {
@@ -38,7 +38,7 @@ export class CakeController {
         const user = await OrganizationModel.findByPk(organizationId);
 
         if(!user?.dataValues?.id) {
-            ResponseHelper.responseJson(res, "company no exists", null, 500);
+            ResponseUtil.responseJson(res, "company no exists", null, 500);
             return;
         }
 
@@ -46,6 +46,6 @@ export class CakeController {
             where: { company_id: organizationId },
             include: { model: CakeImageModel }
         });
-        ResponseHelper.responseJson(res, "", MapCakeHelper.mapCakeList(companyCakes));
+        ResponseUtil.responseJson(res, "", MapCakeUtil.mapCakeList(companyCakes));
     }
 }
