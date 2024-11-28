@@ -6,6 +6,9 @@ import {Model} from "sequelize";
 import {ResponseUtil} from "../utils/response.util";
 import {MapUserUtil} from "../utils/mappers/map-user.util";
 import OrganizationModel from "../models/organization.model";
+import {EncryptPasswordHelper} from "../helpers/EncryptPasswordHelper";
+
+const encryptPassword = new EncryptPasswordHelper();
 
 export class AuthUserController {
     async registerUser(req: Request, res: Response) {
@@ -17,8 +20,9 @@ export class AuthUserController {
             ResponseUtil.responseJson(res, "company no exists", null);
             return ;
         }
+        const passwordEncrypted: string = encryptPassword.encryptPassword(password);
         const creatingUser: Model = await UserModel.create({
-            first_name: name, last_name: lastName, password, phone, email, company_id: findOrganization.dataValues.id
+            first_name: name, last_name: lastName, password: passwordEncrypted, phone, email, company_id: findOrganization.dataValues.id
         });
         const responseUser: UserInterface = MapUserUtil.mapUser(creatingUser.dataValues);
         if(creatingUser) ResponseUtil.responseJson(res, "user registered", responseUser);
@@ -29,12 +33,20 @@ export class AuthUserController {
     async loginUser(req: Request, res: Response) {
         const {password, email} : AuthLoginUserInterface = req.query as any;
         const userFound: Model = await UserModel.findOne({
-            where: { email, password }
+            where: { email }
         });
-        const responseUser: UserInterface = MapUserUtil.mapUser(userFound.dataValues);
-        if(userFound?.dataValues?.id) ResponseUtil.responseJson(res, "user found", responseUser);
+        const { dataValues: user } = userFound;
+        const responseUser: UserInterface = MapUserUtil.mapUser(user.password);
+        if(!user?.id) {
+            ResponseUtil.responseJson(res, "user did not found", null, 404);
+            return ;
+        }
 
-        else ResponseUtil.responseJson(res, "user did not found", null, 404);
+        const verifyPassword: boolean = encryptPassword.verifyPasswordEncrypted(password, user.password);
+        if(!verifyPassword) ResponseUtil.responseJson(res, "password incorrect", null, 401);
+        else ResponseUtil.responseJson(res, "user found", responseUser);
+
+
     }
 
     async deleteUser(req: Request, res: Response) {
