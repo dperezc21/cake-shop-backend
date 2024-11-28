@@ -10,5 +10,6 @@
 #### get and save user of each organization
 #### save cakes and cake images
 
-### **Entity Relationship Model**
-![entity relationship model](https://drive.google.com/file/d/1nQhVDWjfvmQ6QkfVt6hbN-vNvkiuzCT8/view?usp=drive_link)
+### **Entity Relationship Model** 
+![ER - cake shop](https://github.com/user-attachments/assets/705ef9a1-0153-4478-9bec-fc09f1b09777)
+
