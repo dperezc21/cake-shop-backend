@@ -1,7 +1,7 @@
-import {OrganizationInterface} from "../interfaces/organization.interface";
+import {OrganizationInterface} from "../../interfaces/organization.interface";
 import {Model} from "sequelize";
 
-export class MapOrganizationHelper {
+export class MapOrganizationUtil {
     static mapOrganization(organizationModel: any): OrganizationInterface {
         return {
             id: organizationModel?.id,

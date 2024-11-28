@@ -1,8 +1,8 @@
-import {UserInterface} from "../interfaces/auth-user.interface";
+import {UserInterface} from "../../interfaces/auth-user.interface";
 import {Model} from "sequelize";
 
 
-export class MapUserHelper {
+export class MapUserUtil {
     static mapUser(user: any): UserInterface {
         return {
             id: user.id,

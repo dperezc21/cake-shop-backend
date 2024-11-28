@@ -3,8 +3,8 @@ import {RegisterUserInterface, UserInterface} from "../interfaces/auth-user.inte
 import UserModel from "../models/user.model";
 import {AuthLoginUserInterface} from "../interfaces/auth-login-user.interface";
 import {Model} from "sequelize";
-import {ResponseHelper} from "../helpers/response.helper";
-import {MapUserHelper} from "../helpers/map-user.helper";
+import {ResponseUtil} from "../utils/response.util";
+import {MapUserUtil} from "../utils/mappers/map-user.util";
 import OrganizationModel from "../models/organization.model";
 
 export class AuthUserController {
@@ -14,16 +14,16 @@ export class AuthUserController {
         const findOrganization = await OrganizationModel.findByPk(organizationId, {
             attributes: ['id'] });
         if(!findOrganization?.dataValues?.id) {
-            ResponseHelper.responseJson(res, "company no exists", null);
+            ResponseUtil.responseJson(res, "company no exists", null);
             return ;
         }
         const creatingUser: Model = await UserModel.create({
             first_name: name, last_name: lastName, password, phone, email, company_id: findOrganization.dataValues.id
         });
-        const responseUser: UserInterface = MapUserHelper.mapUser(creatingUser.dataValues);
-        if(creatingUser) ResponseHelper.responseJson(res, "user registered", responseUser);
+        const responseUser: UserInterface = MapUserUtil.mapUser(creatingUser.dataValues);
+        if(creatingUser) ResponseUtil.responseJson(res, "user registered", responseUser);
 
-        else ResponseHelper.responseJson(res, "user did not register", null, 500);
+        else ResponseUtil.responseJson(res, "user did not register", null, 500);
     }
 
     async loginUser(req: Request, res: Response) {
@@ -31,10 +31,10 @@ export class AuthUserController {
         const userFound: Model = await UserModel.findOne({
             where: { email, password }
         });
-        const responseUser: UserInterface = MapUserHelper.mapUser(userFound.dataValues);
-        if(userFound?.dataValues?.id) ResponseHelper.responseJson(res, "user found", responseUser);
+        const responseUser: UserInterface = MapUserUtil.mapUser(userFound.dataValues);
+        if(userFound?.dataValues?.id) ResponseUtil.responseJson(res, "user found", responseUser);
 
-        else ResponseHelper.responseJson(res, "user did not found", null, 404);
+        else ResponseUtil.responseJson(res, "user did not found", null, 404);
     }
 
     async deleteUser(req: Request, res: Response) {
@@ -43,8 +43,8 @@ export class AuthUserController {
             where: { id: userId }
         });
 
-        if (deleteUser > 0) ResponseHelper.responseJson(res, "user deleted", deleteUser);
-        else ResponseHelper.responseJson(res, "", null, 201);
+        if (deleteUser > 0) ResponseUtil.responseJson(res, "user deleted", deleteUser);
+        else ResponseUtil.responseJson(res, "", null, 201);
 
     }
 }
