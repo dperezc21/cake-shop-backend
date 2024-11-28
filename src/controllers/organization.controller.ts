@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import {OrganizationInterface} from "../interfaces/organization.interface";
 import OrganizationModel from "../models/organization.model";
 import {ResponseHelper} from "../helpers/response.helper";
@@ -25,7 +25,7 @@ export class OrganizationController {
         const organizationId: string = req.params.organizationId;
         const getOrganization = await OrganizationModel.findByPk(organizationId);
 
-        if(getOrganization.dataValues.id)
+        if(getOrganization?.dataValues?.id)
             ResponseHelper.responseJson(res, "", MapOrganizationHelper.mapOrganization(getOrganization.dataValues));
         else ResponseHelper.responseJson(res, "company did not saved", null);
     }
@@ -36,7 +36,7 @@ export class OrganizationController {
     }
 
     async getOrganizationByName(req: Request, res: Response) {
-        const organizationName: string = req.query.name as string;
+        const organizationName: string = req.params.name as string;
         if(!organizationName) {
             ResponseHelper.responseJson(res, "organization name empty", null, 201);
             return ;

@@ -6,7 +6,8 @@ Content-Type: application/json
   "name": "moca",
   "phone": "310992020",
   "image": "",
-  "email": "moca@gmail.com"
+  "email": "moca@gmail.com",
+  "description": "dulces y reposteria moca"
 }
 
 ### get company by id
@@ -14,3 +15,6 @@ GET http://localhost:3000/org/1
 
 ### get all organizations
 GET http://localhost:3000/org
+
+### get organization by name
+GET http://localhost:3000/org/moca/company

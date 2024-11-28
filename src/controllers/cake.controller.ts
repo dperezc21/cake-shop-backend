@@ -1,7 +1,6 @@
 import {Request, Response} from 'express';
 import {CakeInterface} from "../interfaces/cake.interface";
 import CakeModel from "../models/cake.model";
-import UserModel from "../models/user.model";
 import CakeImageModel from "../models/cake-image.model";
 import {MapCakeHelper} from "../helpers/map-cake.helper";
 import {ResponseHelper} from "../helpers/response.helper";
