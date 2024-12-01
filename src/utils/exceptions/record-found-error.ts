@@ -5,3 +5,9 @@ export class OrganizationFoundError extends Error {
         super(message);
     }
 }
+
+export class UserFoundError extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}

@@ -5,31 +5,24 @@ import {AuthLoginUserInterface} from "../interfaces/auth-login-user.interface";
 import {Model} from "sequelize";
 import {ResponseUtil} from "../utils/response.util";
 import {MapUserUtil} from "../utils/mappers/map-user.util";
-import OrganizationModel from "../models/organization.model";
 import {EncryptPasswordHelper} from "../helpers/EncryptPasswordHelper";
+import {UserServices} from "../helpers/services/user.services";
+import {CreateUserError} from "../utils/exceptions/create-model-error";
 
 const encryptPassword = new EncryptPasswordHelper();
+const userService = new UserServices();
 
 export class AuthUserController {
     async registerUser(req: Request, res: Response) {
         const organizationId: string = req.query.organizationId as string;
-        const {name, lastName, password, phone, email}: RegisterUserInterface = req.body as RegisterUserInterface;
+        const userToRegister: RegisterUserInterface = req.body as RegisterUserInterface;
         try {
-            const findOrganization = await OrganizationModel.findByPk(organizationId, {
-                attributes: ['id'] });
-            if(!findOrganization?.dataValues?.id) {
-                ResponseUtil.responseJson(res, "company no exists", null);
-                return ;
-            }
-            const passwordEncrypted: string = encryptPassword.encryptPassword(password);
-            const creatingUser: Model = await UserModel.create({
-                first_name: name, last_name: lastName, password: passwordEncrypted, phone, email, company_id: findOrganization.dataValues.id
-            });
-            const responseUser: UserInterface = MapUserUtil.mapUser(creatingUser.dataValues);
+            const creatingUser = await userService.createUser(organizationId, userToRegister);
+            const responseUser: UserInterface = MapUserUtil.mapUser(creatingUser);
             if(creatingUser) ResponseUtil.responseJson(res, "user registered", responseUser);
             else ResponseUtil.responseJson(res, "user did not register", null);
         } catch (err) {
-            ResponseUtil.responseJson(res, "Error while register a user", null, 500);
+            throw new CreateUserError("Error while create a user");
         }
     }
 
@@ -39,7 +32,7 @@ export class AuthUserController {
             where: { email }
         });
         const { dataValues: user } = userFound;
-        const responseUser: UserInterface = MapUserUtil.mapUser(user.password);
+        const responseUser: UserInterface = MapUserUtil.mapUser(user);
         if(!user?.id) {
             ResponseUtil.responseJson(res, "user did not found", null, 404);
             return ;
