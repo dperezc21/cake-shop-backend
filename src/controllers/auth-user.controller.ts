@@ -14,20 +14,23 @@ export class AuthUserController {
     async registerUser(req: Request, res: Response) {
         const organizationId: string = req.query.organizationId as string;
         const {name, lastName, password, phone, email}: RegisterUserInterface = req.body as RegisterUserInterface;
-        const findOrganization = await OrganizationModel.findByPk(organizationId, {
-            attributes: ['id'] });
-        if(!findOrganization?.dataValues?.id) {
-            ResponseUtil.responseJson(res, "company no exists", null);
-            return ;
+        try {
+            const findOrganization = await OrganizationModel.findByPk(organizationId, {
+                attributes: ['id'] });
+            if(!findOrganization?.dataValues?.id) {
+                ResponseUtil.responseJson(res, "company no exists", null);
+                return ;
+            }
+            const passwordEncrypted: string = encryptPassword.encryptPassword(password);
+            const creatingUser: Model = await UserModel.create({
+                first_name: name, last_name: lastName, password: passwordEncrypted, phone, email, company_id: findOrganization.dataValues.id
+            });
+            const responseUser: UserInterface = MapUserUtil.mapUser(creatingUser.dataValues);
+            if(creatingUser) ResponseUtil.responseJson(res, "user registered", responseUser);
+            else ResponseUtil.responseJson(res, "user did not register", null);
+        } catch (err) {
+            ResponseUtil.responseJson(res, "Error while register a user", null, 500);
         }
-        const passwordEncrypted: string = encryptPassword.encryptPassword(password);
-        const creatingUser: Model = await UserModel.create({
-            first_name: name, last_name: lastName, password: passwordEncrypted, phone, email, company_id: findOrganization.dataValues.id
-        });
-        const responseUser: UserInterface = MapUserUtil.mapUser(creatingUser.dataValues);
-        if(creatingUser) ResponseUtil.responseJson(res, "user registered", responseUser);
-
-        else ResponseUtil.responseJson(res, "user did not register", null, 500);
     }
 
     async loginUser(req: Request, res: Response) {
