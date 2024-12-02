@@ -46,7 +46,7 @@ export class OrganizationController {
             where: { name: organizationName }
         });
 
-        if(getOrganization.dataValues.id)
+        if(getOrganization?.dataValues?.id)
             ResponseUtil.responseJson(res, "organization", MapOrganizationUtil.mapOrganization(getOrganization.dataValues));
         else ResponseUtil.responseJson(res, "organization no exists", null);
     }

@@ -26,12 +26,11 @@ const OrganizationModel = configDB.define('OrganizationModel', {
 });
 
 export async function createOrganizationTable() {
-    try {
-        await OrganizationModel.sync();
-        console.log('Organization table created successfully!');
-    } catch (err) {
-        throw new Error('Unable to create organization table : '+ err);
-    }
+    return new Promise(async(resolve, reject) => {
+        OrganizationModel.sync()
+            .then(value => resolve('Organization table created successfully!'))
+            .catch(reason => reject('Unable to create organization table'));
+    });
 }
 
 export default OrganizationModel;

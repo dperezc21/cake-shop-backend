@@ -2,25 +2,11 @@ import {configDB} from "../db/connection";
 import {DataTypes} from "sequelize";
 import CakeModel from "./cake.model";
 
-
 const CakeImageModel = configDB.define('CakeImage', {
-    /*id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },*/
     url: {
         type: DataTypes.TEXT,
         allowNull: false
-    },
-    /*cakeId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'Cake',
-            key: 'id'
-        },
-        allowNull: false
-    }*/
+    }
 },{
     tableName: 'cake_image'
 });
@@ -28,12 +14,11 @@ const CakeImageModel = configDB.define('CakeImage', {
 CakeModel.hasMany(CakeImageModel, {foreignKey: 'cake_id'});
 
 export async function createCakeImageTable() {
-    try {
-        await CakeImageModel.sync();
-        console.log("cake image table created");
-    } catch (err) {
-        throw new Error(err);
-    }
+    return new Promise(async(resolve, reject) => {
+        CakeImageModel.sync()
+            .then(value => resolve('cake image table created successfully!'))
+            .catch(reason => reject('Unable to create cake image table'));
+    });
 }
 
 export default CakeImageModel;
