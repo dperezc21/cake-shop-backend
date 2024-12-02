@@ -3,11 +3,6 @@ import {DataTypes} from "sequelize";
 import OrganizationModel from "./organization.model";
 
 const CakeModel = configDB.define('Cake',{
-    /*id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },*/
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -15,26 +10,17 @@ const CakeModel = configDB.define('Cake',{
     description: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    /*userId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'User',
-            key: 'id',
-        },
-        allowNull: false
-    }*/
+    }
 }, { tableName: 'cake'});
 
 OrganizationModel.hasMany(CakeModel, {foreignKey: 'company_id'});
 
 export async function createCakeTable() {
-    try {
-        await CakeModel.sync();
-        console.log('Cake table created successfully!');
-    } catch (err) {
-        throw new Error('Unable to create cake table : '+ err);
-    }
+    return new Promise(async(resolve, reject) => {
+        CakeModel.sync()
+            .then(value => resolve('Cake table created successfully!'))
+            .catch(reason => reject('Unable to create cake table'));
+    });
 }
 
 export default CakeModel;

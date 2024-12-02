@@ -4,17 +4,12 @@ import connectionMysql = require('./db/connection');
 import authRouter from './routers/auth-user.router';
 import cakeRouter from './routers/cake.router';
 import organizationRouter from './routers/organization.router';
-import {createUserTable} from "./models/user.model";
-import {createCakeTable} from "./models/cake.model";
-import {createCakeImageTable} from "./models/cake-image.model";
-import {createOrganizationTable} from "./models/organization.model";
+import {CreateTablesDb} from "./db/create-tables.db";
+
+const createTables = new CreateTablesDb();
 
 connectionMysql.connect();
-/*createOrganizationTable().then();
-createUserTable().then();
-createCakeTable().then();
-createCakeImageTable().then();*/
-
+createTables.creatingTablesDB().catch(console.error);
 const app = express();
 
 app.use(express.json());
