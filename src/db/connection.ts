@@ -1,22 +1,12 @@
 import { Sequelize } from 'sequelize';
 
-/*export const configDB = new Sequelize(
+export const configDB = new Sequelize(
     'cake_shop',
     'root',
     '',
     {
         dialect: 'mysql',
         host: 'localhost',
-        port: 3306
-    });*/
-
-export const configDB = new Sequelize(
-    'cake_shop',
-    'root',
-    'xORSCqOIwJpfzXyHWfeChIycPMhZZNOA',
-    {
-        dialect: 'mysql',
-        host: 'mysql.railway.internal',
         port: 3306
     });
 
