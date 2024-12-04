@@ -10,8 +10,6 @@ export const configDB = new Sequelize(
         host: DB_HOST,
         port: DB_PORT
     });
-console.log("DB_NAME", DB_NAME);
-console.log("PORT", DB_HOST);
 
 export function connect() {
     configDB.authenticate().then(() => {
