@@ -31,18 +31,16 @@ export class AuthUserController {
         const userFound: Model = await UserModel.findOne({
             where: { email }
         });
-        const { dataValues: user } = userFound;
-        const responseUser: UserInterface = MapUserUtil.mapUser(user);
-        if(!user?.id) {
+
+        if(!userFound?.dataValues?.id) {
             ResponseUtil.responseJson(res, "user did not found", null, 404);
             return ;
         }
-
+        const { dataValues: user } = userFound;
+        const responseUser: UserInterface = MapUserUtil.mapUser(user);
         const verifyPassword: boolean = encryptPassword.verifyPasswordEncrypted(password, user.password);
         if(!verifyPassword) ResponseUtil.responseJson(res, "password incorrect", null, 401);
         else ResponseUtil.responseJson(res, "user found", responseUser);
-
-
     }
 
     async deleteUser(req: Request, res: Response) {

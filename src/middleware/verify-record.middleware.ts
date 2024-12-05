@@ -13,7 +13,7 @@ export default class VerifyRecordMiddleware {
             const findOrganization = await OrganizationModel.findByPk(organizationId, {
                 attributes: ['id'] });
             if(findOrganization?.dataValues?.id) next();
-            ResponseUtil.responseJson(res, "company no exists", null);
+            else ResponseUtil.responseJson(res, "company no exists", null);
         } catch (err) {
             throw new OrganizationFoundError("Error while verify if company exists");
         }
@@ -30,9 +30,9 @@ export default class VerifyRecordMiddleware {
             const findUser = await UserModel.findOne({ where: { email }, attributes: ['id'] });
 
             if(!findUser?.dataValues?.id) next();
-            ResponseUtil.responseJson(res, "user found with same email", null, 400);
+            else ResponseUtil.responseJson(res, "user found with same email", null, 400);
         } catch (err) {
-            throw new UserFoundError("Error while find user by email");
+            throw new UserFoundError("Error while search user by email");
         }
 
     }
