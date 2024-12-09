@@ -8,7 +8,7 @@ const CakeModel = configDB.define('Cake',{
         allowNull: false
     },
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     }
 }, { tableName: 'cake'});
