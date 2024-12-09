@@ -1,5 +1,5 @@
 import {configDB} from "../db/connection";
-import {DataTypes} from "sequelize";
+import {DataTypes, SyncAlterOptions, SyncOptions} from "sequelize";
 import OrganizationModel from "./organization.model";
 
 const CakeModel = configDB.define('Cake',{
@@ -17,7 +17,7 @@ OrganizationModel.hasMany(CakeModel, {foreignKey: 'company_id'});
 
 export async function createCakeTable() {
     return new Promise(async(resolve, reject) => {
-        CakeModel.sync()
+        CakeModel.sync({alter: true})
             .then(value => resolve('Cake table created successfully!'))
             .catch(reason => reject('Unable to create cake table'));
     });

@@ -27,7 +27,7 @@ const OrganizationModel = configDB.define('OrganizationModel', {
 
 export async function createOrganizationTable() {
     return new Promise(async(resolve, reject) => {
-        OrganizationModel.sync()
+        OrganizationModel.sync({alter: true})
             .then(value => resolve('Organization table created successfully!'))
             .catch(reason => reject('Unable to create organization table'));
     });
