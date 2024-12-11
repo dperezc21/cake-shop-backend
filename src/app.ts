@@ -1,6 +1,6 @@
 import express = require('express');
 import cors = require('cors');
-import connectionMysql = require('./db/connection');
+import connectionDataBase from "./db/connection";
 import authRouter from './routers/auth-user.router';
 import cakeRouter from './routers/cake.router';
 import organizationRouter from './routers/organization.router';
@@ -9,7 +9,7 @@ import {PORT} from "./config";
 
 const createTables = new CreateTablesDb();
 
-connectionMysql.connect();
+connectionDataBase.connect();
 createTables.creatingTablesDB().catch(console.error);
 const app = express();
 

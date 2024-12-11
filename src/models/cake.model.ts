@@ -1,8 +1,9 @@
-import {configDB} from "../db/connection";
-import {DataTypes, SyncAlterOptions, SyncOptions} from "sequelize";
+
+import connectionDataBase from "../db/connection";
+import {DataTypes} from "sequelize";
 import OrganizationModel from "./organization.model";
 
-const CakeModel = configDB.define('Cake',{
+const CakeModel = connectionDataBase.connection().define('Cake',{
     name: {
         type: DataTypes.STRING,
         allowNull: false

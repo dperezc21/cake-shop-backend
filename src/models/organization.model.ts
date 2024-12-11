@@ -1,7 +1,7 @@
-import {configDB} from "../db/connection";
+import connectionDataBase from "../db/connection";
 import {DataTypes} from "sequelize";
 
-const OrganizationModel = configDB.define('OrganizationModel', {
+const OrganizationModel = connectionDataBase.connection().define('OrganizationModel', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,

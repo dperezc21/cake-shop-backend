@@ -1,8 +1,8 @@
-import {configDB} from "../db/connection";
+import connectionDataBase from "../db/connection";
 import {DataTypes} from "sequelize";
 import CakeModel from "./cake.model";
 
-const CakeImageModel = configDB.define('CakeImage', {
+const CakeImageModel = connectionDataBase.connection().define('CakeImage', {
     url: {
         type: DataTypes.TEXT,
         allowNull: false
