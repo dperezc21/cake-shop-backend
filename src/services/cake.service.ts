@@ -1,5 +1,5 @@
-import CakeModel from "../../models/cake.model";
-import CakeImageModel from "../../models/cake-image.model";
+import CakeModel from "../models/cake.model";
+import CakeImageModel from "../models/cake-image.model";
 import {Model} from "sequelize";
 
 

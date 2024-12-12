@@ -1,6 +1,6 @@
-import UserModel from "../../models/user.model";
-import {EncryptPasswordHelper} from "../EncryptPasswordHelper";
-import {RegisterUserInterface} from "../../interfaces/auth-user.interface";
+import UserModel from "../models/user.model";
+import {EncryptPasswordHelper} from "../helpers/EncryptPasswordHelper";
+import {RegisterUserInterface} from "../interfaces/auth-user.interface";
 
 const encryptPassword = new EncryptPasswordHelper();
 

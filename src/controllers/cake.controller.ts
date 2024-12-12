@@ -6,7 +6,7 @@ import {MapCakeUtil} from "../utils/mappers/map-cake.util";
 import {ResponseUtil} from "../utils/response.util";
 import {CakeImageController} from "./cake-image.controller";
 import OrganizationModel from "../models/organization.model";
-import {CakeService} from "../helpers/services/cake.service";
+import {CakeService} from "../services/cake.service";
 
 const cakeImageController = new CakeImageController();
 const cakeService = new CakeService();

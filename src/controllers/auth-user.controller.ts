@@ -7,7 +7,7 @@ import {Model} from "sequelize";
 import {ResponseUtil} from "../utils/response.util";
 import {MapUserUtil} from "../utils/mappers/map-user.util";
 import {EncryptPasswordHelper} from "../helpers/EncryptPasswordHelper";
-import {UserServices} from "../helpers/services/user.services";
+import {UserServices} from "../services/user.services";
 import {CreateUserError} from "../utils/exceptions/create-model-error";
 import {JwtHelper} from "../helpers/jwt.helper";
 
