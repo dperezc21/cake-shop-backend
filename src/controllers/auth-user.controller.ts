@@ -3,6 +3,7 @@ import {RegisterUserInterface, UserInterface} from "../interfaces/auth-user.inte
 import UserModel from "../models/user.model";
 import {AuthLoginUserInterface} from "../interfaces/auth-login-user.interface";
 import {Model} from "sequelize";
+
 import {ResponseUtil} from "../utils/response.util";
 import {MapUserUtil} from "../utils/mappers/map-user.util";
 import {EncryptPasswordHelper} from "../helpers/EncryptPasswordHelper";
@@ -44,6 +45,7 @@ export class AuthUserController {
         if(!verifyPassword) ResponseUtil.responseJson(res, "password incorrect", null, 401);
         else {
             const userToken = await jwt.createJWT(responseUser);
+            res.cookie('token', userToken, { httpOnly: true, secure: true });
             ResponseUtil.responseJson(res, "user found", responseUser);
         }
     }
