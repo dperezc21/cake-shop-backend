@@ -8,9 +8,11 @@ import {MapUserUtil} from "../utils/mappers/map-user.util";
 import {EncryptPasswordHelper} from "../helpers/EncryptPasswordHelper";
 import {UserServices} from "../helpers/services/user.services";
 import {CreateUserError} from "../utils/exceptions/create-model-error";
+import {JwtHelper} from "../helpers/jwt.helper";
 
 const encryptPassword = new EncryptPasswordHelper();
 const userService = new UserServices();
+const jwt = new JwtHelper();
 
 export class AuthUserController {
     async registerUser(req: Request, res: Response) {
@@ -40,7 +42,10 @@ export class AuthUserController {
         const responseUser: UserInterface = MapUserUtil.mapUser(user);
         const verifyPassword: boolean = encryptPassword.verifyPasswordEncrypted(password, user.password);
         if(!verifyPassword) ResponseUtil.responseJson(res, "password incorrect", null, 401);
-        else ResponseUtil.responseJson(res, "user found", responseUser);
+        else {
+            const userToken = await jwt.createJWT(responseUser);
+            ResponseUtil.responseJson(res, "user found", responseUser);
+        }
     }
 
     async deleteUser(req: Request, res: Response) {
