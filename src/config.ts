@@ -1,4 +1,4 @@
-process.loadEnvFile();
+if(!Boolean(process.env.PRODUCCTION)) process.loadEnvFile();
 
 export const {
     DB_NAME ,
