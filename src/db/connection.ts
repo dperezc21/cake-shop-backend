@@ -47,27 +47,3 @@ class ConnectionMysql implements ConnectionRepository {
 }
 
 export default new ConnectionMysql();
-/*
-export const configDB = new Sequelize(
-    DB_NAME,
-    DB_USER_NAME,
-    DB_PASSWORD,
-    {
-        dialect: 'mysql',
-        host: DB_HOST,
-        port: DB_PORT
-    });
-
-export function connect() {
-    configDB.authenticate().then(() => {
-        console.log('Connection has been established successfully.');
-    }).catch((error) => {
-        console.error('Unable to connection to the database: ', error);
-    });
-}
-
-export function desconnect(): void {
-    configDB.close().then(() => {
-        console.log("connections to the data base closed");
-    }).catch();
-}*/
