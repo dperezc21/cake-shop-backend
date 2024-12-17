@@ -31,9 +31,7 @@ export class AuthUserController {
 
     async loginUser(req: Request, res: Response) {
         const {password, email} : AuthLoginUserInterface = req.query as any;
-        const userFound: Model = await UserModel.findOne({
-            where: { email }
-        });
+        const userFound: Model = await userService.findUserByEmail(email);
 
         if(!userFound?.dataValues?.id) {
             ResponseUtil.responseJson(res, "user did not found", null, 404);
@@ -52,12 +50,8 @@ export class AuthUserController {
 
     async deleteUser(req: Request, res: Response) {
         const userId: string = req.params.userId;
-        const deleteUser: number = await UserModel.destroy({
-            where: { id: userId }
-        });
-
+        const deleteUser: number = await userService.deleteUser(userId);
         if (deleteUser > 0) ResponseUtil.responseJson(res, "user deleted", deleteUser);
         else ResponseUtil.responseJson(res, "", null, 201);
-
     }
 }

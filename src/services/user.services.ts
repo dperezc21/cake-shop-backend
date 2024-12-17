@@ -1,6 +1,7 @@
 import UserModel from "../models/user.model";
 import {EncryptPasswordHelper} from "../helpers/EncryptPasswordHelper";
 import {RegisterUserInterface} from "../interfaces/auth-user.interface";
+import {Model} from "sequelize";
 
 const encryptPassword = new EncryptPasswordHelper();
 
@@ -17,6 +18,20 @@ export class UserServices {
                 reject(reason);
             });
         });
+    }
 
+    findUserByEmail(email: string): Promise<Model> {
+        return new Promise((resolve, reject) => {
+            UserModel.findOne({ where: { email }})
+                .then(resolve).catch(reject);
+        });
+    }
+
+    deleteUser(userId: string): Promise<number> {
+        return new Promise((resolve, reject) => {
+            UserModel.destroy({
+                where: { id: userId }
+            }).then(resolve).catch(reason => reject(-1));
+        })
     }
 }
