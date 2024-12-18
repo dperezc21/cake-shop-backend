@@ -9,7 +9,7 @@ const userService: UserServices = new UserServices();
 
 export class VerifyTokenMiddleware {
     async verifyUserToken(req: Request, res: Response, next: NextFunction) {
-        const token: string = req.headers['authorization'].split(" ")[1];
+        const token: string = req?.headers['authorization']?.split(" ")[1];
         try {
             if(!token) {
                 ResponseUtil.responseJson(res, "No token provided", "", 401);

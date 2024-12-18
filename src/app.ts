@@ -6,7 +6,9 @@ import cakeRouter from './routers/cake.router';
 import organizationRouter from './routers/organization.router';
 import {CreateTablesDb} from "./db/create-tables.db";
 import {PORT} from "./config";
+import VerifyRecordMiddleware from "./middleware/verify-record.middleware";
 
+const { verifyOrganizationExists } = new VerifyRecordMiddleware();
 const createTables = new CreateTablesDb();
 
 connectionDataBase.connect();
@@ -17,12 +19,12 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/auth', authRouter);
-app.use('/cakes', cakeRouter);
+app.use('/cakes',[verifyOrganizationExists], cakeRouter);
 app.use('/org', organizationRouter);
 
 app.get('/', (req, res) => {
     res.send("hola");
-})
+});
 
 app.listen(PORT, () => {
     console.log(`Listening on port http://localhost:${PORT}!`);

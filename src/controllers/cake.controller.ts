@@ -44,4 +44,15 @@ export class CakeController {
             ResponseUtil.responseJson(res, err, null, 500);
         }
     }
+
+    async filterCake(req: Request, res: Response) {
+        const name: string = req.query.name as string;
+        const organizationId: number = req.query.organizationId as unknown as number;
+        try {
+            const findCakes = await cakeService.filterCakes(organizationId, name);
+            ResponseUtil.responseJson(res, "", MapCakeUtil.mapCakeList(findCakes));
+        } catch (err) {
+            ResponseUtil.responseJson(res, "error", null, 500);
+        }
+    }
 }
