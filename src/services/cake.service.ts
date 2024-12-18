@@ -24,4 +24,11 @@ export class CakeService {
            }).then(resolve)
         });
     }
+
+    async saveCake(name: string, description: string, id: string): Promise<Model> {
+        return new Promise((resolve, reject) => {
+            CakeModel.create({ name, description, company_id: id })
+                .then(resolve).catch();
+        });
+    }
 }

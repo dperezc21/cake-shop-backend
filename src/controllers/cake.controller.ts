@@ -24,9 +24,7 @@ export class CakeController {
             return;
         }
 
-        const cakeCreated = await CakeModel.create({
-            name, description, company_id: company.dataValues.id
-        });
+        const cakeCreated = await cakeService.saveCake(name, description, company.dataValues.id);
 
         if(cakeCreated) {
             cakeImageController.saveImagesCake(images, cakeCreated.dataValues.id)
