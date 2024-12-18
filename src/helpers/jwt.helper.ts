@@ -7,7 +7,7 @@ export class JwtHelper {
     createJWT = (payload: UserInterface): Promise<string> => {
         return new Promise((resolve, reject) => {
             jwt.sign(payload, SECRET_JSON_WEB_TOKEN,
-                { encoding: 'utf8', expiresIn: Date.now() + 10000},
+                { encoding: 'utf8', expiresIn: '2m'},
                 (error, encoded) => {
                             if(error) reject(error)
                             resolve(encoded);

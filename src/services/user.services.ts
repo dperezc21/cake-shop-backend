@@ -14,9 +14,7 @@ export class UserServices {
                 first_name: name, last_name: lastName, password: passwordEncrypted, phone, email, company_id: organizationId
             }).then(value => {
                 resolve(value?.dataValues);
-            }).catch(reason => {
-                reject(reason);
-            });
+            }).catch(reject);
         });
     }
 
@@ -32,6 +30,12 @@ export class UserServices {
             UserModel.destroy({
                 where: { id: userId }
             }).then(resolve).catch(reason => reject(-1));
-        })
+        });
+    }
+
+    findUserByd(id: string): Promise<Model> {
+        return new Promise((resolve, reject) => {
+            UserModel.findByPk(id).then(resolve).catch(reject);
+        });
     }
 }
