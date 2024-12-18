@@ -9,8 +9,8 @@ import {PORT} from "./config";
 
 const createTables = new CreateTablesDb();
 
-connectionDataBase.connect();
-createTables.creatingTablesDB().catch(console.error);
+/*connectionDataBase.connect();
+createTables.creatingTablesDB().catch(console.error);*/
 const app = express();
 
 app.use(express.json());
