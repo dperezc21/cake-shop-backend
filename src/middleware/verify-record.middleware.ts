@@ -13,7 +13,7 @@ export default class VerifyRecordMiddleware {
             const findOrganization = await OrganizationModel.findByPk(organizationId, {
                 attributes: ['id'] });
             if(findOrganization?.dataValues?.id) next();
-            else ResponseUtil.responseJson(res, "company no exists", null);
+            else ResponseUtil.responseJson(res, "company no exists", null, 400);
         } catch (err) {
             throw new OrganizationFoundError("Error while verify if company exists");
         }

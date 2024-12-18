@@ -16,4 +16,4 @@ Content-Type: application/json
 GET http://localhost:3000/cakes?organizationId=1
 
 ### filter cakes
-GET http://localhost:3000/cakes/filter?organizationId=1&name=Cookie
+GET http://localhost:3000/cakes/filter?organizationId=1&name=choco
