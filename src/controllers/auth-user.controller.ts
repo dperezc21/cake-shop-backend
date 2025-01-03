@@ -1,6 +1,5 @@
 import {Request, Response} from 'express';
 import {RegisterUserInterface, UserInterface} from "../interfaces/auth-user.interface";
-import UserModel from "../models/user.model";
 import {AuthLoginUserInterface} from "../interfaces/auth-login-user.interface";
 import {Model} from "sequelize";
 
@@ -18,6 +17,7 @@ const jwt = new JwtHelper();
 export class AuthUserController {
     async registerUser(req: Request, res: Response) {
         const organizationId: string = req.query.organizationId as string;
+        //const role: string = req.query.role as string;
         const userToRegister: RegisterUserInterface = req.body as RegisterUserInterface;
         try {
             const creatingUser = await userService.createUser(organizationId, userToRegister);
@@ -44,7 +44,7 @@ export class AuthUserController {
         else {
             const userToken = await jwt.createJWT(responseUser);
             res.cookie('token', userToken, { httpOnly: true, secure: true });
-            ResponseUtil.responseJson(res, "user found", responseUser);
+            ResponseUtil.responseJson(res, "user found", responseUser, 200, userToken);
         }
     }
 
