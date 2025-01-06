@@ -3,10 +3,13 @@ POST http://localhost:3000/org HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "moca",
-  "phone": "310992020",
-  "image": "",
-  "email": "moca@gmail.com",
+  "userName": "davier enrique",
+  "lastName": "perez",
+  "organizationName": "moca",
+  "phone": 310992020,
+  "organizationEmail": "moca.reposteria@gmail.com",
+  "email": "lopez@gmail.com",
+  "password": "12345",
   "description": "dulces y reposteria moca"
 }
 

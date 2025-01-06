@@ -13,7 +13,7 @@ const { verifyOrganizationExists } = new VerifyRecordMiddleware();
 const createTables = new CreateTablesDb();
 
 connectionDataBase.connect();
-createTables.creatingTablesDB().catch(console.error);
+//createTables.creatingTablesDB().catch(console.error);
 const app = express();
 
 app.use(express.json());

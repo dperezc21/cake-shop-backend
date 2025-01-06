@@ -1,11 +1,20 @@
 import {Request, Response} from 'express';
-import {OrganizationInterface} from "../interfaces/organization.interface";
+import {OrganizationInterface, OrganizationRegister} from "../interfaces/organization.interface";
 import OrganizationModel from "../models/organization.model";
 import {ResponseUtil} from "../utils/response.util";
 import {MapOrganizationUtil} from "../utils/mappers/map-organization.util";
+import {UserServices} from "../services/user.services";
+import {RegisterUserInterface, UserInterface} from "../interfaces/auth-user.interface";
+
+const userService = new UserServices();
 
 export class OrganizationController {
 
+    /**
+     * @deprecated
+     * @param req
+     * @param res
+     */
     async saveOrganization(req: Request, res: Response) {
         const { name, phone, image, email, description }: OrganizationInterface = req.body;
         const findOrgByEmail = await OrganizationModel.findOne({
@@ -19,6 +28,32 @@ export class OrganizationController {
         if(orgSaved?.dataValues?.id)
             ResponseUtil.responseJson(res, "company saved", MapOrganizationUtil.mapOrganization(orgSaved?.dataValues));
         else ResponseUtil.responseJson(res, "company did not save", null);
+    }
+
+    async saveOrganizationWithUser(req: Request, res: Response) {
+        const { organizationName, organizationEmail, userName, email, phone, description, ...dataUser  }: OrganizationRegister = req.body;
+        const userToRegister: RegisterUserInterface = {
+            ...dataUser, name: userName, role: "admin", phone, email
+        }
+        try {
+            const findOrgByEmail = await OrganizationModel.findOne({
+                where: { email: organizationEmail }
+            });
+            if(findOrgByEmail?.dataValues?.id) {
+                ResponseUtil.responseJson(res, "company exists with this email", null);
+                return ;
+            }
+            const orgSaved = await OrganizationModel.create(
+                { name: organizationName, phone, email: organizationEmail, description });
+            if(!orgSaved?.dataValues?.id) ResponseUtil.responseJson(res, "company did not save", null);
+            else {
+                await userService.createUser(orgSaved.dataValues.id, userToRegister);
+                ResponseUtil.responseJson(res, "company saved", MapOrganizationUtil.mapOrganization(orgSaved?.dataValues));
+            }
+        } catch (err) {
+            console.log(err);
+            ResponseUtil.responseJson(res, "err while create company with user", null, 500);
+        }
     }
 
     async getOrganizationById(req: Request, res: Response) {

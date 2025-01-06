@@ -4,6 +4,7 @@ import {NextFunction, Request, Response} from "express";
 import {OrganizationFoundError, UserFoundError} from "../utils/exceptions/record-found-error";
 import {RegisterUserInterface} from "../interfaces/auth-user.interface";
 import UserModel from "../models/user.model";
+import {OrganizationInterface, OrganizationRegister} from "../interfaces/organization.interface";
 
 export default class VerifyRecordMiddleware {
 
@@ -35,5 +36,19 @@ export default class VerifyRecordMiddleware {
             throw new UserFoundError("Error while search user by email");
         }
 
+    }
+
+    async organizationNameNotExists(req: Request, res: Response, next: NextFunction) {
+        const { organizationName }: OrganizationRegister = req.body;
+        try {
+            const findOrganization = await OrganizationModel.findOne({
+                where: { name: organizationName },
+                attributes: ['id']
+            });
+            if(findOrganization?.dataValues?.id) ResponseUtil.responseJson(res, "company name exists", null, 400);
+            else next();
+        } catch (err) {
+            throw new OrganizationFoundError("Error while verify if company name exists");
+        }
     }
 }
