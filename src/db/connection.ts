@@ -21,7 +21,8 @@ class ConnectionMysql implements ConnectionRepository {
             {
                 dialect: 'mysql',
                 host: DB_HOST,
-                port: Number(DB_PORT)
+                port: Number(DB_PORT),
+                logging: false
             });
     }
 

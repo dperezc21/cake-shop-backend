@@ -1,10 +1,10 @@
 
 export interface OrganizationInterface {
     id?: number;
-    name: string;
+    organizationName: string;
     email: string;
     phone: string;
-    image: string;
+    image?: string;
     description: string;
 }
 

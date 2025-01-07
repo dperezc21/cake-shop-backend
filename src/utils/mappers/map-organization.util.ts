@@ -5,7 +5,7 @@ export class MapOrganizationUtil {
     static mapOrganization(organizationModel: any): OrganizationInterface {
         return {
             id: organizationModel?.id,
-            name: organizationModel?.name,
+            organizationName: organizationModel?.name,
             email: organizationModel?.email,
             phone: organizationModel?.phone,
             image: organizationModel?.logo,

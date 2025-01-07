@@ -10,7 +10,7 @@ const recordExistsService = new RecordExistsService();
 export default class VerifyRecordMiddleware {
 
     async verifyOrganizationExists(req: Request, res: Response, next: NextFunction) {
-        const organizationId: string = req.query.organizationId as string;
+        const organizationId: any = req.query.organizationId || req.params.organizationId as string;
         try {
             const findOrganization: boolean = await recordExistsService.organizationExistsById(organizationId);
             if(findOrganization) next();

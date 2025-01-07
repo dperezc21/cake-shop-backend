@@ -21,3 +21,15 @@ GET http://localhost:3000/org
 
 ### get organization by name
 GET http://localhost:3000/org/moca/company
+
+### update organization
+PUT http://localhost:3000/org/company/1 HTTP/1.1
+Content-Type: application/json
+
+{
+  "organizationName": "Bocados y dulces, moca",
+  "phone": 310992,
+  "email": "lopez@gmail.com",
+  "description": "dulces y moca",
+  "image": "image"
+}
