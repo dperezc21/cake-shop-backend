@@ -85,6 +85,13 @@ export class OrganizationController {
         const organizationId: string = req.params.organizationId as string;
         let { id, ...organization }: OrganizationInterface = req.body as OrganizationInterface;
         try {
+            const organizationWithSameName: boolean = await organizationService.organizationWithNameExists(organizationId, organization.organizationName);
+
+            if(organizationWithSameName) {
+                ResponseUtil.responseJson(res, "organization with this name exists yet", null);
+                return ;
+            }
+
             const updateOrganization = await organizationService.updateOrganization(organizationId, organization);
 
             if(updateOrganization) ResponseUtil.responseJson(res, "organization updated", {

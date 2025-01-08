@@ -1,4 +1,4 @@
-import {Model} from "sequelize";
+import {Model, Op} from "sequelize";
 import OrganizationModel from "../models/organization.model";
 import {OrganizationInterface} from "../interfaces/organization.interface";
 
@@ -33,5 +33,15 @@ export class OrganizationService {
            OrganizationModel.update(organization, { where: {id: organizationId} })
                .then(value => resolve(value[0] == 1)).catch(reject)
        });
+    }
+
+    async organizationWithNameExists(organizationId: string, organizationName: string): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            OrganizationModel.findOne({
+                where: {
+                    [Op.and]: [{ id: { [Op.ne]: organizationId }, name: { [Op.eq]: organizationName }} ]
+                }, attributes: ["id"]})
+                .then(value => resolve(!!value?.dataValues?.id)).catch(reject)
+        });
     }
 }
