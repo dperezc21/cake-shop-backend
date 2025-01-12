@@ -9,7 +9,8 @@ export class MapUserUtil {
             name: user.first_name,
             email: user.email,
             phone: user.phone,
-            lastName: user.last_name
+            lastName: user.last_name,
+            role: user.user_rol_name
         }
     }
 
