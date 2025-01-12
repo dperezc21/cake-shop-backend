@@ -22,6 +22,13 @@ const UserModel = connectionDataBase.connection().define('User',{
         type: DataTypes.STRING,
         allowNull: false
     },
+    user_rol_name: {
+        type: DataTypes.STRING,
+        references: {
+            model: { tableName: 'user_rol' },
+            key: 'rol_name'
+        }
+    }
 }, {
     tableName: 'user'
 });

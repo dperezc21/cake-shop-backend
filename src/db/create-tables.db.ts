@@ -3,7 +3,7 @@ import {createUserTable} from "../models/user.model";
 import {createCakeImageTable} from "../models/cake-image.model";
 import {createCakeTable} from "../models/cake.model";
 import {CreateTablesError} from "../utils/exceptions/create-tables-error";
-import {addColumn, createUserRolTable} from "../models/user-rol.model";
+import {createUserRolTable} from "../models/user-rol.model";
 
 export class CreateTablesDb {
 
@@ -14,7 +14,6 @@ export class CreateTablesDb {
             await createCakeTable();
             await createCakeImageTable();
             await createUserRolTable();
-            addColumn();
         } catch (err) {
             throw new CreateTablesError("Error while create tables in data base");
         }
