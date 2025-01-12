@@ -11,5 +11,5 @@ save cakes and cake images
 Review ***endpoints folder*** to see details each endpoint, methods http, body, etc.  
 
 ### **Entity Relationship Model** 
-![ER - cake shop](https://github.com/user-attachments/assets/705ef9a1-0153-4478-9bec-fc09f1b09777)
+![ER - cake shop](https://github.com/user-attachments/assets/29aa0293-5e41-4973-83a9-402c6fc59728)
 
