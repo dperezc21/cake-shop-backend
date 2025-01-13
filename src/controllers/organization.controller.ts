@@ -3,11 +3,11 @@ import {OrganizationInterface, OrganizationRegister} from "../interfaces/organiz
 import OrganizationModel from "../models/organization.model";
 import {ResponseUtil} from "../utils/response.util";
 import {MapOrganizationUtil} from "../utils/mappers/map-organization.util";
-import {UserServices} from "../services/user.services";
+import {UserService} from "../services/userService";
 import {RegisterUserInterface} from "../interfaces/auth-user.interface";
 import {OrganizationService} from "../services/organization.service";
 
-const userService = new UserServices();
+const userService = new UserService();
 const organizationService = new OrganizationService();
 
 export class OrganizationController {

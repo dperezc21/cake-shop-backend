@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/auth', authRouter);
-app.use('/users', userRouter);
-app.use('/cakes',[verifyOrganizationExists], cakeRouter);
+app.use('/users', [verifyOrganizationExists], userRouter);
+app.use('/cakes', [verifyOrganizationExists], cakeRouter);
 app.use('/org', organizationRouter);
 app.use('/roles', userRoleRouter);
 

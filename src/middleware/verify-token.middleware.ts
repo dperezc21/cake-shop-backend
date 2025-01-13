@@ -1,11 +1,11 @@
 import {Request, Response, NextFunction} from "express";
 import jwt, {Jwt, JwtPayload, VerifyErrors} from 'jsonwebtoken';
-import {UserServices} from "../services/user.services";
+import {UserService} from "../services/userService";
 import {SECRET_JSON_WEB_TOKEN} from "../config";
 import {UserInterface} from "../interfaces/auth-user.interface";
 import {ResponseUtil} from "../utils/response.util";
 
-const userService: UserServices = new UserServices();
+const userService: UserService = new UserService();
 
 export class VerifyTokenMiddleware {
     async verifyUserToken(req: Request, res: Response, next: NextFunction) {

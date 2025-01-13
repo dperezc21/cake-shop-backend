@@ -6,18 +6,17 @@ import {Model} from "sequelize";
 import {ResponseUtil} from "../utils/response.util";
 import {MapUserUtil} from "../utils/mappers/map-user.util";
 import {EncryptPasswordHelper} from "../helpers/EncryptPasswordHelper";
-import {UserServices} from "../services/user.services";
+import {UserService} from "../services/userService";
 import {CreateUserError} from "../utils/exceptions/create-model-error";
 import {JwtHelper} from "../helpers/jwt.helper";
 
 const encryptPassword = new EncryptPasswordHelper();
-const userService = new UserServices();
+const userService = new UserService();
 const jwt = new JwtHelper();
 
 export class AuthUserController {
     async registerUser(req: Request, res: Response) {
         const organizationId: string = req.query.organizationId as string;
-        //const role: string = req.query.role as string;
         const userToRegister: RegisterUserInterface = req.body as RegisterUserInterface;
         try {
             const creatingUser = await userService.createUser(organizationId, userToRegister);
