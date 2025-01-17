@@ -17,7 +17,7 @@ export class UserService {
                 phone,
                 email,
                 company_id: organizationId,
-                user_rol_name: role ? role : ""
+                user_rol_name: role ? role : "user"
             }).then(value => {
                 resolve(value?.dataValues);
             }).catch(reject);
