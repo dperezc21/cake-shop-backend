@@ -30,6 +30,6 @@ export async function createUserRolTable() {
     return new Promise(async(resolve, reject) => {
         UserRolModel.sync({alter: true})
             .then(value => resolve('user rol table created successfully!'))
-            .catch(reason => reject('Unable to create user rol table'));
+            .catch(reason => reject('Unable to create user rol table '+ reason));
     });
 }

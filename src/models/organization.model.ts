@@ -29,7 +29,7 @@ export async function createOrganizationTable() {
     return new Promise(async(resolve, reject) => {
         OrganizationModel.sync({alter: true})
             .then(value => resolve('Organization table created successfully!'))
-            .catch(reason => reject('Unable to create organization table'));
+            .catch(reason => reject('Unable to create organization table '+ reason));
     });
 }
 

@@ -17,7 +17,7 @@ export async function createCakeImageTable() {
     return new Promise(async(resolve, reject) => {
         CakeImageModel.sync({alter: true})
             .then(value => resolve('cake image table created successfully!'))
-            .catch(reason => reject('Unable to create cake image table'));
+            .catch(reason => reject('Unable to create cake image table '+ reason));
     });
 }
 

@@ -10,13 +10,12 @@ export class CreateTablesDb {
     async creatingTablesDB() {
         try {
             await createOrganizationTable();
+            await createUserRolTable();
             await createUserTable();
             await createCakeTable();
             await createCakeImageTable();
-            await createUserRolTable();
         } catch (err) {
-            console.log(err);
-            throw new CreateTablesError("Error while create tables in data base");
+            throw new CreateTablesError(err);
         }
     }
 

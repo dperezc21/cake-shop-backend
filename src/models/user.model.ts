@@ -36,7 +36,7 @@ OrganizationModel.hasMany(UserModel, {foreignKey: 'company_id'});
 
 export async function createUserTable() {
     return new Promise(async(resolve, reject) => {
-        UserModel.sync({alter: true})
+        UserModel.sync()
             .then(value => resolve('user table created successfully!'))
             .catch(reason => reject('Unable to create user table' + reason));
     });

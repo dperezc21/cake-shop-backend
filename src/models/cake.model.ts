@@ -20,7 +20,7 @@ export async function createCakeTable() {
     return new Promise(async(resolve, reject) => {
         CakeModel.sync({alter: true})
             .then(value => resolve('Cake table created successfully!'))
-            .catch(reason => reject('Unable to create cake table'));
+            .catch(reason => reject('Unable to create cake table '+ reason));
     });
 }
 
