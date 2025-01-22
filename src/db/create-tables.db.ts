@@ -15,6 +15,7 @@ export class CreateTablesDb {
             await createCakeImageTable();
             await createUserRolTable();
         } catch (err) {
+            console.log(err);
             throw new CreateTablesError("Error while create tables in data base");
         }
     }
