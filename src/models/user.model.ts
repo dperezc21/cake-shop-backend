@@ -38,7 +38,7 @@ export async function createUserTable() {
     return new Promise(async(resolve, reject) => {
         UserModel.sync({alter: true})
             .then(value => resolve('user table created successfully!'))
-            .catch(reason => reject('Unable to create user table'));
+            .catch(reason => reject('Unable to create user table' + reason));
     });
 }
 
