@@ -1,0 +1,20 @@
+
+### get all users
+GET http://localhost:3000/users/all?organizationId=1
+
+### update user
+PUT http://localhost:3000/users/update/1
+Content-Type: application/json
+
+{
+  "name": "davier",
+  "lastName": "perez cabrera",
+  "email": "davier@gmail.com",
+  "phone": "31099292",
+  "password": "12345",
+  "role": "admin"
+}
+
+### delete use by id
+DELETE http://localhost:3000/auth/users/1
+

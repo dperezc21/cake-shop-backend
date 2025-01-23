@@ -8,13 +8,10 @@ POST http://localhost:3000/auth/users/register?organizationId=1 HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "manuela",
-  "lastName": "diaz",
-  "email": "manuela@gmail.com",
+  "name": "davier",
+  "lastName": "perez cabrera",
+  "email": "davier@gmail.com",
   "phone": "31099292",
   "password": "12345",
-  "role": "user"
+  "role": "admin"
 }
-
-### delete use by id
-DELETE http://localhost:3000/auth/users/1

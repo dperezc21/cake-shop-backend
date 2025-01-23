@@ -27,7 +27,7 @@ app.use('/org', organizationRouter);
 app.use('/roles', userRoleRouter);
 
 app.get('/', (req, res) => {
-    res.send("hola");
+    res.send("welcome");
 });
 
 app.listen(PORT, () => {

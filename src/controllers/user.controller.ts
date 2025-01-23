@@ -37,4 +37,11 @@ export class UserController {
             ResponseUtil.responseJson(res, "error updating user", false, 500);
         }
     }
+
+    async deleteUser(req: Request, res: Response) {
+        const userId: string = req.params.userId;
+        const deleteUser: number = await userService.deleteUser(userId);
+        if (deleteUser > 0) ResponseUtil.responseJson(res, "user deleted", deleteUser);
+        else ResponseUtil.responseJson(res, "", null, 201);
+    }
 }
