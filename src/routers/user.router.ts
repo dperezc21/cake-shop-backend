@@ -8,7 +8,7 @@ const userController = new UserController();
 const { verifyUserToken } = new VerifyTokenMiddleware();
 
 userRouter.get('/all', userController.getAllUsers);
-userRouter.get('/update/:userId', userController.editUser);
+userRouter.put('/update/:userId', userController.editUser);
 userRouter.delete('/:userId',[verifyUserToken], userController.deleteUser);
 
 export default userRouter
