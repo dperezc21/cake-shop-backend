@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node dist/app.js",
-    "tsc": "tsc -w"
+    "tsc": "tsc -w",
+    "build": "tsc"
   },
   "author": "davier perez cabrera",
   "license": "ISC",
