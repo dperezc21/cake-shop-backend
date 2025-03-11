@@ -1,14 +1,14 @@
 import express = require('express');
 import cors = require('cors');
-import connectionDataBase from "../src/db/connection";
-import authRouter from '../src/routers/auth-user.router';
-import cakeRouter from '../src/routers/cake.router';
-import organizationRouter from '../src/routers/organization.router';
-import userRoleRouter from '../src/routers/user-rol.router';
-import userRouter from '../src/routers/user.router';
-import {CreateTablesDb} from "../src/db/create-tables.db";
-import {PORT} from "../src/config";
-import VerifyRecordMiddleware from "../src/middleware/verify-record.middleware";
+import connectionDataBase from "./db/connection";
+import authRouter from './routers/auth-user.router';
+import cakeRouter from './routers/cake.router';
+import organizationRouter from './routers/organization.router';
+import userRoleRouter from './routers/user-rol.router';
+import userRouter from './routers/user.router';
+import {CreateTablesDb} from "./db/create-tables.db";
+import {PORT} from "./config";
+import VerifyRecordMiddleware from "./middleware/verify-record.middleware";
 
 const { verifyOrganizationExists } = new VerifyRecordMiddleware();
 const createTables = new CreateTablesDb();
