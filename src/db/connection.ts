@@ -19,7 +19,7 @@ class ConnectionMysql implements ConnectionRepository {
             DB_USER_NAME,
             DB_PASSWORD,
             {
-                dialect: 'postgres',
+                dialect: 'mysql',
                 host: DB_HOST,
                 port: Number(DB_PORT),
                 logging: false

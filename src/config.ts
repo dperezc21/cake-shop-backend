@@ -1,5 +1,5 @@
-process?.loadEnvFile?.();
-
+//process?.loadEnvFile?.();
+require('dotenv').config();
 export const {
     DB_NAME ,
     DB_USER_NAME,
