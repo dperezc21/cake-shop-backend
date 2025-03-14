@@ -44,4 +44,19 @@ export class OrganizationService {
                 .then(value => resolve(!!value?.dataValues?.id)).catch(reject)
         });
     }
+
+    async findOrCreateOrganization(organizationName: string): Promise<Model> {
+        return new Promise((resolve, reject) => {
+            OrganizationModel.findCreateFind({
+                where: { name: organizationName},
+                defaults: {
+                    name: organizationName,
+                    email: "",
+                    description: "",
+                    phone: ""
+                }
+            }).then(value => resolve(value[0]))
+                .catch(reject)
+        });
+    }
 }

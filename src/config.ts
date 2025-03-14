@@ -1,5 +1,4 @@
 //process?.loadEnvFile?.();
-import {Dialect} from "sequelize";
 
 require('dotenv').config();
 export const {

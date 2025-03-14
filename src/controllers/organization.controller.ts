@@ -74,7 +74,7 @@ export class OrganizationController {
             return ;
         }
 
-        const getOrganization = await organizationService.organizationByName(organizationName);
+        const getOrganization = await organizationService.findOrCreateOrganization(organizationName);
 
         if(getOrganization?.dataValues?.id)
             ResponseUtil.responseJson(res, "organization", MapOrganizationUtil.mapOrganization(getOrganization.dataValues));
