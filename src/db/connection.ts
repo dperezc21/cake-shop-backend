@@ -5,7 +5,7 @@ import {ConnectionRepository} from "../interfaces/ConnectionRepository";
 class ConnectionMysql implements ConnectionRepository {
     private static connectionMysql: ConnectionMysql;
     private static configDB: Sequelize;
-    connectionDialect: Dialect = Boolean(PRODUCTION) ? 'mysql' : 'postgres';
+    connectionDialect: Dialect = PRODUCTION == "false" ? 'mysql' : 'postgres';
     constructor() {
         if(!ConnectionMysql.connectionMysql) {
             this.configDataBase();
@@ -15,8 +15,6 @@ class ConnectionMysql implements ConnectionRepository {
     }
 
     protected configDataBase() {
-        console.log("value", PRODUCTION);
-        console.log("Dialect", this.connectionDialect)
         ConnectionMysql.configDB = new Sequelize(
             DB_NAME,
             DB_USER_NAME,
