@@ -1,10 +1,11 @@
-import {Sequelize} from 'sequelize';
-import {DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER_NAME} from "../config";
+import {Dialect, Sequelize} from 'sequelize';
+import {DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER_NAME, PRODUCTION} from "../config";
 import {ConnectionRepository} from "../interfaces/ConnectionRepository";
 
 class ConnectionMysql implements ConnectionRepository {
     private static connectionMysql: ConnectionMysql;
     private static configDB: Sequelize;
+    connectionDialect: Dialect = Boolean(PRODUCTION) ? 'mysql' : 'postgres';
     constructor() {
         if(!ConnectionMysql.connectionMysql) {
             this.configDataBase();
@@ -19,7 +20,7 @@ class ConnectionMysql implements ConnectionRepository {
             DB_USER_NAME,
             DB_PASSWORD,
             {
-                dialect: 'postgres',
+                dialect: this.connectionDialect,
                 host: DB_HOST,
                 port: Number(DB_PORT),
                 logging: false

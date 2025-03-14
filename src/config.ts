@@ -1,4 +1,6 @@
 //process?.loadEnvFile?.();
+import {Dialect} from "sequelize";
+
 require('dotenv').config();
 export const {
     DB_NAME ,
@@ -6,7 +8,8 @@ export const {
     DB_PASSWORD,
     DB_HOST,
     DB_PORT,
-    SECRET_JSON_WEB_TOKEN
+    SECRET_JSON_WEB_TOKEN,
+    PRODUCTION
 } = process.env;
 
 export const PORT: number = 3000;
