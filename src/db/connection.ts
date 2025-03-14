@@ -15,6 +15,8 @@ class ConnectionMysql implements ConnectionRepository {
     }
 
     protected configDataBase() {
+        console.log("value", PRODUCTION);
+        console.log("Dialect", this.connectionDialect)
         ConnectionMysql.configDB = new Sequelize(
             DB_NAME,
             DB_USER_NAME,
