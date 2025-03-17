@@ -24,6 +24,7 @@ export class AuthUserController {
             if(creatingUser) ResponseUtil.responseJson(res, "user registered", responseUser);
             else ResponseUtil.responseJson(res, "user did not register", null);
         } catch (err) {
+            console.error(err);
             throw new CreateUserError("Error while create a user");
         }
     }
