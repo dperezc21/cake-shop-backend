@@ -9,8 +9,10 @@ import userRouter from './routers/user.router';
 import {CreateTablesDb} from "./db/create-tables.db";
 import {PORT} from "./config";
 import VerifyRecordMiddleware from "./middleware/verify-record.middleware";
+import {VerifyTokenMiddleware} from "./middleware/verify-token.middleware";
 
 const { verifyOrganizationExists } = new VerifyRecordMiddleware();
+const { verifyUserToken } = new VerifyTokenMiddleware();
 const createTables = new CreateTablesDb();
 
 connectionDataBase.connect();
@@ -21,7 +23,7 @@ index.use(express.json());
 index.use(cors());
 
 index.use('/auth', authRouter);
-index.use('/users', [verifyOrganizationExists], userRouter);
+index.use('/users', [verifyUserToken, verifyOrganizationExists], userRouter);
 index.use('/cakes', [verifyOrganizationExists], cakeRouter);
 index.use('/org', organizationRouter);
 index.use('/roles', userRoleRouter);

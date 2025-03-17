@@ -1,5 +1,5 @@
-import {Request, Response, NextFunction} from "express";
-import jwt, {Jwt, JwtPayload, VerifyErrors} from 'jsonwebtoken';
+import {NextFunction, Request, Response} from "express";
+import jwt, {VerifyErrors} from 'jsonwebtoken';
 import {UserService} from "../services/userService";
 import {SECRET_JSON_WEB_TOKEN} from "../config";
 import {UserInterface} from "../interfaces/auth-user.interface";

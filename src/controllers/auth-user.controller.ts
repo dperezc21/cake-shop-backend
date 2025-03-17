@@ -33,7 +33,7 @@ export class AuthUserController {
         const userFound: Model = await userService.findUserByEmail(email);
 
         if(!userFound?.dataValues?.id) {
-            ResponseUtil.responseJson(res, "user did not found", null, 404);
+            ResponseUtil.responseJson(res, "user did not found", null, 401);
             return ;
         }
         const { dataValues: user } = userFound;

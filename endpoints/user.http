@@ -16,5 +16,5 @@ Content-Type: application/json
 }
 
 ### delete use by id
-DELETE http://localhost:3000/auth/users/1
+DELETE http://localhost:3000/users/6?organizationId=1
 

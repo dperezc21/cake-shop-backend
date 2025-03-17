@@ -1,14 +1,12 @@
 import express, {Router} from 'express';
 import {UserController} from "../controllers/user.controller";
-import {VerifyTokenMiddleware} from "../middleware/verify-token.middleware";
 
 let userRouter: Router = express.Router();
 
 const userController = new UserController();
-const { verifyUserToken } = new VerifyTokenMiddleware();
 
 userRouter.get('/all', userController.getAllUsers);
 userRouter.put('/update/:userId', userController.editUser);
-userRouter.delete('/:userId',[verifyUserToken], userController.deleteUser);
+userRouter.delete('/:userId', userController.deleteUser);
 
 export default userRouter
