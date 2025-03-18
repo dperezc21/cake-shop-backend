@@ -15,17 +15,6 @@ export const UserRolModel = connection.connection().define('UserRol',{
     tableName: 'user_rol'
 });
 
-export function addColumn() {
-    queryInterface.addColumn({ tableName: 'user' },
-        'user_rol_name', {
-        type: DataTypes.STRING,
-        references: {
-            model: { tableName: 'user_rol' },
-            key: 'rol_name'
-        }
-    }).then(value => console.log("column added to use"))
-}
-
 function insertDefaultRole(rol: string): Promise<string> {
     return new Promise((resolve, reject)=> {
         UserRolModel.findOrCreate({
