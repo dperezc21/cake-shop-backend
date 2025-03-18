@@ -26,10 +26,21 @@ export function addColumn() {
     }).then(value => console.log("column added to use"))
 }
 
+function insertDefaultRole(rol: string): Promise<string> {
+    return new Promise((resolve, reject)=> {
+        UserRolModel.findOrCreate({
+            where: { rol_name: rol },
+            defaults: { rol_name: rol }
+        }).then(() => resolve("rol admin default created"))
+            .catch(() => reject("error to insert admin rol"))
+    });
+}
+
 export async function createUserRolTable() {
     return new Promise(async(resolve, reject) => {
         UserRolModel.sync({alter: true})
-            .then(value => resolve('user rol table created successfully!'))
+            .then(()=> resolve('user rol table created successfully!'))
+            .then(async() => await insertDefaultRole("admin"))
             .catch(reason => reject('Unable to create user rol table '+ reason));
     });
 }
