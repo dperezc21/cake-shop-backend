@@ -26,11 +26,9 @@ export class UserRolController {
         try {
             const findRoles = await userRoleService.allRoles();
             const roles: string[] = MapUserRolUtil.mapUserRolList(findRoles);
-            ResponseUtil.responseJson(res, "user rol created", roles);
+            ResponseUtil.responseJson(res, "roles", roles);
         } catch (err) {
             ResponseUtil.responseJson(res, "error while create user rol", false, 500);
         }
     }
-
-
 }

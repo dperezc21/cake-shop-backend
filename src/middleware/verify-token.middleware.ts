@@ -19,6 +19,7 @@ export class VerifyTokenMiddleware {
                if(err) ResponseUtil.responseJson(res, "token did not authenticated", "", 401);
                 else {
                    const jwtPayload: UserInterface = result as UserInterface;
+                   req.body.roleAllowed = jwtPayload?.id ? jwtPayload?.role : "";
                    const user = await userService.findUserByd(jwtPayload.id.toString());
                    if(!user?.dataValues?.id) ResponseUtil.responseJson(res, "user not authenticated", "", 401);
                    else next();

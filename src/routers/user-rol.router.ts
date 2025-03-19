@@ -5,6 +5,6 @@ const userRolController = new UserRolController();
 let authRouter: Router = express.Router();
 
 authRouter.post('/:roleName', userRolController.saveUserRol);
-authRouter.get('/all', userRolController.getAllRoles);
+authRouter.get('', userRolController.getAllRoles);
 
 export default authRouter;

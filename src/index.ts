@@ -26,7 +26,7 @@ index.use('/auth', authRouter);
 index.use('/users', [verifyUserToken, verifyOrganizationExists], userRouter);
 index.use('/cakes', [verifyOrganizationExists], cakeRouter);
 index.use('/org', organizationRouter);
-index.use('/roles', userRoleRouter);
+index.use('/roles', [verifyUserToken], userRoleRouter);
 
 index.get('/', (req, res) => {
     res.send("welcome");
