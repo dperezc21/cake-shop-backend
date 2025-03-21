@@ -6,6 +6,7 @@ import cakeRouter from './routers/cake.router';
 import organizationRouter from './routers/organization.router';
 import userRoleRouter from './routers/user-rol.router';
 import userRouter from './routers/user.router';
+import cakeCategoryRouter from './routers/cake-category.router';
 import {CreateTablesDb} from "./db/create-tables.db";
 import {PORT} from "./config";
 import VerifyRecordMiddleware from "./middleware/verify-record.middleware";
@@ -27,6 +28,7 @@ index.use('/users', [verifyUserToken, verifyOrganizationExists], userRouter);
 index.use('/cakes', [verifyOrganizationExists], cakeRouter);
 index.use('/org', organizationRouter);
 index.use('/roles', [verifyUserToken], userRoleRouter);
+index.use('/categories', [verifyUserToken], cakeCategoryRouter);
 
 index.get('/', (req, res) => {
     res.send("welcome");

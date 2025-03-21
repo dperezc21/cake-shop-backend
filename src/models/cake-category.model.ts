@@ -1,8 +1,8 @@
 import connection from "../db/connection";
-import {DataTypes} from "sequelize";
+import {DataTypes, Model, ModelStatic} from "sequelize";
 
 export class CakeCategoryModel {
-    private static categoryCake: any;
+    private static categoryCake: ModelStatic<Model>;
 
     constructor() {
        CakeCategoryModel.categoryCake = connection.connection().define('CakeCategory',{
