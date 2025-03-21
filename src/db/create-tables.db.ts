@@ -1,12 +1,12 @@
 import {createOrganizationTable} from "../models/organization.model";
 import {createUserTable} from "../models/user.model";
 import {createCakeImageTable} from "../models/cake-image.model";
-import {createCakeTable} from "../models/cake.model";
+import {addColumnReferenceToCakeCategory, createCakeTable} from "../models/cake.model";
 import {CreateTablesError} from "../utils/exceptions/create-tables-error";
 import {createUserRolTable} from "../models/user-rol.model";
-import {CategoryCakeModel} from "../models/category-cake.model";
+import {CakeCategoryModel} from "../models/cake-category.model";
 
-const createCategoryModel = new CategoryCakeModel();
+const createCategoryModel = new CakeCategoryModel();
 
 export class CreateTablesDb {
 
@@ -17,7 +17,8 @@ export class CreateTablesDb {
             await createUserTable();
             await createCakeTable();
             await createCakeImageTable();
-            //await createCategoryModel.createCategoryCakeTable();
+            await createCategoryModel.createCakeCategoryTable();
+            await addColumnReferenceToCakeCategory();
         } catch (err) {
             throw new CreateTablesError(err);
         }

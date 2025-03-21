@@ -1,11 +1,11 @@
 import connection from "../db/connection";
 import {DataTypes} from "sequelize";
 
-export class CategoryCakeModel {
+export class CakeCategoryModel {
     private static categoryCake: any;
 
     constructor() {
-       CategoryCakeModel.categoryCake = connection.connection().define('CategoryCake',{
+       CakeCategoryModel.categoryCake = connection.connection().define('CakeCategory',{
             category_name: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -15,20 +15,20 @@ export class CategoryCakeModel {
                 type: DataTypes.STRING,
             }
         }, {
-            tableName: 'category_cake'
+            tableName: 'cake_category'
         });
     }
 
-    async createCategoryCakeTable() {
+    async createCakeCategoryTable() {
         return new Promise(async(resolve, reject) => {
-            CategoryCakeModel.categoryCake.sync({alter: true})
+            CakeCategoryModel.categoryCake.sync({alter: true})
                 .then(() => resolve('category cake table created successfully!'))
-                .catch((reason: string) => reject('Unable to create category cake table '+ reason));
+                .catch((reason: string) => reject('Unable to create cake category table '+ reason));
         });
     }
 
     static getModel() {
-        return CategoryCakeModel.categoryCake;
+        return CakeCategoryModel.categoryCake;
     }
 
 }
