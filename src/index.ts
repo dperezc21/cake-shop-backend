@@ -11,9 +11,11 @@ import {CreateTablesDb} from "./db/create-tables.db";
 import {PORT} from "./config";
 import VerifyRecordMiddleware from "./middleware/verify-record.middleware";
 import {VerifyTokenMiddleware} from "./middleware/verify-token.middleware";
+import {AdminAuthorizationMiddleware} from "./middleware/admin-authorization.middleware";
 
 const { verifyOrganizationExists } = new VerifyRecordMiddleware();
 const { verifyUserToken } = new VerifyTokenMiddleware();
+const { verifyAdminUser } = new AdminAuthorizationMiddleware();
 const createTables = new CreateTablesDb();
 
 connectionDataBase.connect();
@@ -28,7 +30,7 @@ index.use('/users', [verifyUserToken, verifyOrganizationExists], userRouter);
 index.use('/cakes', [verifyOrganizationExists], cakeRouter);
 index.use('/org', organizationRouter);
 index.use('/roles', [verifyUserToken], userRoleRouter);
-index.use('/categories', [verifyUserToken], cakeCategoryRouter);
+index.use('/categories', [verifyUserToken, verifyAdminUser], cakeCategoryRouter);
 
 index.get('/', (req, res) => {
     res.send("welcome");

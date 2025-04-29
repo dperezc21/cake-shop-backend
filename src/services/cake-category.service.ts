@@ -12,4 +12,11 @@ export class CakeCategoryService {
            resolve(categoryCreated[0]);
         });
     }
+
+    async getAllCategories(): Promise<Model[]> {
+        return new Promise(async(resolve, reject) => {
+            const categoryCreated = await CakeCategoryModel.getModel().findAll();
+            resolve(categoryCreated);
+        });
+    }
 }
