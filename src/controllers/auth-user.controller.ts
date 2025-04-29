@@ -47,4 +47,8 @@ export class AuthUserController {
             ResponseUtil.responseJson(res, "user found", responseUser, 200, userToken);
         }
     }
+
+    async verifySession(req: Request, res: Response) {
+        ResponseUtil.responseJson(res, "user verified", true, 200);
+    }
 }
